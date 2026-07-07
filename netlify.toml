@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build:netlify"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NODE_ENV = "production"
+  UPLOAD_STORE = "blobs"
+  APP_VERSION = "1.0.0"
+
+# Database — one of:
+#   DATABASE_URL (manual Neon connection string), OR
+#   Neon extension auto-injects NETLIFY_DATABASE_URL at build + runtime
+# DIRECT_URL is optional (derived automatically during build)
+#   APP_URL, INTERNAL_SECRET, CRON_SECRET, INTEGRATION_ENCRYPTION_KEY, METRICS_SECRET
+#   RESEND_API_KEY or SMTP_HOST/SMTP_USER/SMTP_PASSWORD, EMAIL_FROM

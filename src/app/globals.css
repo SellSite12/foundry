@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+:root,
+[data-theme="dark"] {
+  --fdy-base: #0c0a09;
+  --fdy-base2: #111011;
+  --fdy-surface: #18140f;
+  --fdy-surface2: #1f1a13;
+  --fdy-line: rgba(232, 163, 61, 0.1);
+  --fdy-line-strong: rgba(232, 163, 61, 0.22);
+  --fdy-copper: #e8a33d;
+  --fdy-copper-deep: #b85c2e;
+  --fdy-copper-soft: rgba(232, 163, 61, 0.14);
+  --fdy-text: #efe9df;
+  --fdy-text-dim: #b8afa0;
+  --fdy-text-faint: #7a7266;
+  --fdy-danger: #f87171;
+  --fdy-danger-soft: rgba(248, 113, 113, 0.08);
+  --fdy-success: #86efac;
+  --fdy-success-soft: rgba(74, 222, 128, 0.1);
+  --fdy-hover: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="light"] {
+  --fdy-base: #faf6ef;
+  --fdy-base2: #ffffff;
+  --fdy-surface: #ffffff;
+  --fdy-surface2: #f6f0e6;
+  --fdy-line: rgba(146, 100, 26, 0.14);
+  --fdy-line-strong: rgba(146, 100, 26, 0.3);
+  --fdy-copper: #b0721c;
+  --fdy-copper-deep: #8f4a1e;
+  --fdy-copper-soft: rgba(176, 114, 28, 0.12);
+  --fdy-text: #23180d;
+  --fdy-text-dim: #5c4f3d;
+  --fdy-text-faint: #93866f;
+  --fdy-danger: #dc2626;
+  --fdy-danger-soft: rgba(220, 38, 38, 0.07);
+  --fdy-success: #15803d;
+  --fdy-success-soft: rgba(21, 128, 61, 0.09);
+  --fdy-hover: rgba(0, 0, 0, 0.04);
+}
+
+/* Semantic tokens usable as Tailwind utilities (bg-surface, text-copper, …).
+   They reference CSS variables, so runtime theme switching just works. */
+@theme inline {
+  --color-base: var(--fdy-base);
+  --color-base2: var(--fdy-base2);
+  --color-surface: var(--fdy-surface);
+  --color-surface2: var(--fdy-surface2);
+  --color-line: var(--fdy-line);
+  --color-line-strong: var(--fdy-line-strong);
+  --color-copper: var(--fdy-copper);
+  --color-copper-deep: var(--fdy-copper-deep);
+  --color-copper-soft: var(--fdy-copper-soft);
+  --color-ink: var(--fdy-text);
+  --color-ink-dim: var(--fdy-text-dim);
+  --color-ink-faint: var(--fdy-text-faint);
+  --color-danger: var(--fdy-danger);
+  --color-danger-soft: var(--fdy-danger-soft);
+  --color-success: var(--fdy-success);
+  --color-success-soft: var(--fdy-success-soft);
+  --color-hover: var(--fdy-hover);
+}
+
+html,
+body {
+  background: var(--fdy-base);
+  color: var(--fdy-text);
+}
+
+body {
+  font-family: var(--font-inter), "Inter", sans-serif;
+}
+
+.fdy-display {
+  font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+}
+
+.fdy-mono {
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+}
+
+/* ---------------- landing page keyframes (Phase 1) ---------------- */
+
+@keyframes fdy-drift-1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(4%, 6%) scale(1.08);
+  }
+}
+@keyframes fdy-drift-2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-5%, -4%) scale(1.1);
+  }
+}
+@keyframes fdy-float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(var(--rot, 0deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(var(--rot, 0deg));
+  }
+}
+@keyframes fdy-pulse-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes fdy-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fdy-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fdy-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes fdy-grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-1%, -2%);
+  }
+  30% {
+    transform: translate(2%, 1%);
+  }
+  50% {
+    transform: translate(-2%, 2%);
+  }
+  70% {
+    transform: translate(1%, -1%);
+  }
+  90% {
+    transform: translate(-1%, 1%);
+  }
+}
+
+.fdy-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.fdy-reveal.fdy-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fdy-magnetic {
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.25s ease;
+}
+
+.fdy-card-hover {
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+.fdy-card-hover:hover {
+  transform: translateY(-6px);
+}
+
+.fdy-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fdy-root * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------- dashboard transitions & skeletons ---------------- */
+
+.fdy-page-enter {
+  animation: fdy-rise 0.35s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@keyframes fdy-shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+.fdy-skeleton {
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--fdy-surface) 25%,
+    var(--fdy-surface2) 50%,
+    var(--fdy-surface) 75%
+  );
+  background-size: 800px 100%;
+  animation: fdy-shimmer 1.4s linear infinite;
+}
+
+@keyframes fdy-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fdy-pop {
+  animation: fdy-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ---------------- app-wide form styles ---------------- */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--fdy-text);
+  -webkit-box-shadow: 0 0 0px 1000px var(--fdy-surface) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
