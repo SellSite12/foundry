@@ -23,7 +23,7 @@ export async function putUpload(segments: string[], data: Buffer): Promise<void>
   const key = segments.join("/");
   if (useBlobs()) {
     const store = await blobStore();
-    await store.set(key, new Blob([data]));
+    await store.set(key, new Blob([new Uint8Array(data)]));
     return;
   }
   const filePath = path.join(process.cwd(), "var", "uploads", ...segments);

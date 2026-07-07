@@ -16,6 +16,7 @@
     "setup:neon": "node scripts/setup-neon.mjs",
     "setup:netlify": "node scripts/setup-netlify.mjs",
     "export:netlify-env": "node scripts/export-netlify-env.mjs",
+    "launch:netlify": "node scripts/complete-launch.mjs",
     "test:neon": "node scripts/test-neon.mjs",
     "build:netlify": "node scripts/prisma-netlify.mjs && next build",
     "cron": "node scripts/cron-runner.mjs",

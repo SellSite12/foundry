@@ -29,3 +29,6 @@ netlify-env.import
 *.pem
 npm-debug.log*
 *.tsbuildinfo
+
+# Local Netlify folder
+.netlify

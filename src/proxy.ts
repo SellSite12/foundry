@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { SESSION_COOKIE } from "@/lib/constants";
-import { isCustomDomainHost, normalizeHost } from "@/lib/shop/domain";
+import { isCustomDomainHost, normalizeHost } from "@/lib/shop/domain-host";
 import { config as appConfig } from "@/lib/config";
 import { generateRequestId, REQUEST_ID_HEADER } from "@/lib/observability/request-id";
 
