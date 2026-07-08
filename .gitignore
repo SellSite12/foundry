@@ -32,3 +32,8 @@ npm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# local CI/netlify experiments (never commit)
+.test-ci/
+.test-netlify-install/
+.test-netlify2/
