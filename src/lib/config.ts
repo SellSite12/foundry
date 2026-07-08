@@ -29,9 +29,10 @@ export function validateProductionConfig(): { ok: boolean; warnings: string[] } 
   if (!process.env.REDIS_URL) {
     warnings.push("REDIS_URL not set — rate limiting uses in-memory store (single instance only)");
   }
-  if (!process.env.SMTP_HOST) warnings.push("SMTP_HOST not set — emails will not send");
   if (!process.env.RESEND_API_KEY && !process.env.SMTP_HOST) {
     warnings.push("RESEND_API_KEY or SMTP_* required for transactional email");
+  } else if (!process.env.RESEND_API_KEY && !process.env.SMTP_USER) {
+    warnings.push("SMTP_USER not set — SMTP email incomplete");
   }
 
   return { ok: warnings.length === 0, warnings };
