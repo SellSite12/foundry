@@ -19,6 +19,13 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   serverExternalPackages: ["@prisma/client", "prisma", "pg", "@prisma/adapter-pg"],
+  outputFileTracingExcludes: {
+    "*": [
+      "./node_modules/@prisma/**",
+      "./node_modules/.prisma/**",
+      "./node_modules/@prisma/adapter-pg/**",
+    ],
+  },
   typescript: {
     ignoreBuildErrors: process.env.NETLIFY === "true",
   },
