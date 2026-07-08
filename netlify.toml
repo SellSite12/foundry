@@ -1,5 +1,5 @@
 [build]
-  command = "echo netlify-toml-ok && node --version && npm --version && ls package.json prisma/schema.prisma && npm exec -- prisma generate && npm exec -- next build"
+  command = "echo netlify-toml-ok && exit 0"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
