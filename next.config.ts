@@ -15,6 +15,9 @@ const csp = [
   "form-action 'self'",
 ].join("; ");
 
+/** Template preview is embedded in seller dashboard iframes (same origin). */
+const cspEmbeddable = csp.replace("frame-ancestors 'none'", "frame-ancestors 'self'");
+
 const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
@@ -57,6 +60,13 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: securityHeaders,
+      },
+      {
+        source: "/preview/:path*",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Content-Security-Policy", value: cspEmbeddable },
+        ],
       },
       {
         source: "/uploads/:path*",
