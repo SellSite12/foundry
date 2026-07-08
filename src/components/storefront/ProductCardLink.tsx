@@ -16,7 +16,8 @@ export function ProductCardLink({ href, className, style, children }: Props) {
 
   function onMove(e: React.MouseEvent<HTMLAnchorElement>) {
     const el = ref.current;
-    if (!el?.closest('[data-sf-motion="premium"]')) return;
+    const motion = el?.closest('[data-sf-motion="premium"], [data-sf-motion="cinematic"]');
+    if (!el || !motion) return;
 
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;

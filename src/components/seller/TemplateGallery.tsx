@@ -34,7 +34,18 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
   const [saveOpen, setSaveOpen] = useState(false);
   const [saveName, setSaveName] = useState("");
   const [filter, setFilter] = useState<"all" | "FREE" | "PAID" | "CUSTOM">("all");
+  const [industryFilter, setIndustryFilter] = useState<string>("all");
   const [preview, setPreview] = useState<Template | null>(null);
+
+  const industries = Array.from(
+    new Set(templates.map((t) => t.industry).filter((i): i is string => Boolean(i)))
+  ).sort();
+
+  const shown = templates.filter((t) => {
+    if (filter !== "all" && t.tier !== filter) return false;
+    if (industryFilter !== "all" && t.industry !== industryFilter) return false;
+    return true;
+  });
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -93,8 +104,6 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
     load();
   }
 
-  const shown = templates.filter((t) => filter === "all" || t.tier === filter);
-
   return (
     <div className="mb-6 rounded-2xl border border-line bg-surface p-5">
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
@@ -126,6 +135,33 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
           </button>
         ))}
       </div>
+
+      {industries.length > 0 ? (
+        <div className="mb-4 flex flex-wrap items-center gap-1.5">
+          <span className="text-[11px] font-medium uppercase tracking-wide text-ink-faint">Category</span>
+          <button
+            type="button"
+            onClick={() => setIndustryFilter("all")}
+            className={`rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-colors ${
+              industryFilter === "all" ? "border-copper text-copper" : "border-line text-ink-dim hover:text-ink"
+            }`}
+          >
+            All
+          </button>
+          {industries.map((ind) => (
+            <button
+              key={ind}
+              type="button"
+              onClick={() => setIndustryFilter(ind)}
+              className={`rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-colors ${
+                industryFilter === ind ? "border-copper text-copper" : "border-line text-ink-dim hover:text-ink"
+              }`}
+            >
+              {ind}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {error ? <div className="mb-4"><Alert kind="error">{error}</Alert></div> : null}
 
@@ -178,9 +214,9 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
                 <p className="mt-1 flex-1 text-[12px] leading-relaxed text-ink-faint">
                   {t.description ?? (t.isCustom ? "Your saved design" : "")}
                 </p>
-                {t.industry ? (
-                  <p className="mt-1 text-[11px] text-ink-faint">{t.industry}</p>
-                ) : null}
+                  {t.industry ? (
+                    <span className="sf-template-industry-pill mt-1.5 w-fit">{t.industry}</span>
+                  ) : null}
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                   {t.tier === "PAID" && !t.purchased ? (
                     <span className="text-[12px] font-medium text-copper">
