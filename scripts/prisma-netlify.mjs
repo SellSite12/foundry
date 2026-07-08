@@ -2,8 +2,8 @@
 // Prisma generate + migrate for Netlify/Neon.
 // Build succeeds without DATABASE_URL (generate only). Migrations run when URL is present.
 
-import { readFile, writeFile } from "fs/promises";
-import { spawn } from "child_process";
+import { readFile } from "fs/promises";
+import { execSync } from "child_process";
 import path from "path";
 
 const PLACEHOLDER =
@@ -33,8 +33,7 @@ function setupPrismaEnv() {
   if (!url) {
     console.warn("\n⚠️  No DATABASE_URL / NETLIFY_DATABASE_URL at build time.");
     console.warn("   → prisma generate will run (placeholder URL)");
-    console.warn("   → migrations SKIPPED");
-    console.warn("   → Add DATABASE_URL in Netlify env vars for a working site!\n");
+    console.warn("   → migrations SKIPPED\n");
     process.env.DATABASE_URL = PLACEHOLDER;
     process.env.DIRECT_URL = PLACEHOLDER;
     return false;
@@ -56,30 +55,21 @@ function setupPrismaEnv() {
   return true;
 }
 
-function run(cmd, args) {
-  return new Promise((resolve, reject) => {
-    const opts = { stdio: "inherit", env: process.env };
-    if (process.platform === "win32" && (cmd.endsWith(".cmd") || cmd.endsWith(".bat"))) {
-      opts.shell = true;
-    }
-    const child = spawn(cmd, args, opts);
-    child.on("close", (code) => (code === 0 ? resolve() : reject(new Error(`${cmd} exited ${code}`))));
-  });
+function run(cmd) {
+  execSync(cmd, { stdio: "inherit", env: process.env });
 }
-
-const prismaBin = path.join(process.cwd(), "node_modules", ".bin", process.platform === "win32" ? "prisma.cmd" : "prisma");
 
 await loadEnvFile();
 const canMigrate = setupPrismaEnv();
 
-await run(prismaBin, ["generate"]);
+run("npx prisma generate");
 
 if (canMigrate) {
   try {
-    await run(prismaBin, ["migrate", "deploy"]);
+    run("npx prisma migrate deploy");
     console.log("Prisma ready (migrations applied).");
   } catch (err) {
-    console.warn("⚠️  prisma migrate deploy failed (continuing if DB already migrated):", err.message);
+    console.warn("⚠️  prisma migrate deploy failed (continuing):", err.message);
   }
 } else {
   console.log("Prisma client generated (migrations skipped — no DB URL).");
