@@ -2,4 +2,4 @@
 import { execSync } from "child_process";
 
 await import("./prisma-netlify.mjs");
-execSync("npx next build --webpack", { stdio: "inherit", env: process.env });
+execSync("npx next build", { stdio: "inherit", env: process.env });
