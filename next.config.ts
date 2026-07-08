@@ -18,6 +18,7 @@ const csp = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
+  serverExternalPackages: ["@prisma/client", "prisma"],
   typescript: {
     ignoreBuildErrors: process.env.NETLIFY === "true",
   },
