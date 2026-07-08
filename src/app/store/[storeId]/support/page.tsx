@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { BookOpen, Mail, MessageSquare, FileQuestion } from "lucide-react";
 
 import { getStoreAccess } from "@/lib/seller/access";
+import { supportEmailAddress } from "@/lib/admin/access";
 import { PageHeader, Panel } from "@/components/seller/ui";
+import { SupportTicketsPanel } from "@/components/seller/SupportTicketsPanel";
 
 export const metadata = { title: "Support" };
 
@@ -43,19 +45,25 @@ export default async function SupportPage({
   const access = await getStoreAccess(storeId);
   if (!access) notFound();
 
+  const supportEmail = supportEmailAddress();
+
   return (
     <div>
       <PageHeader title="Support" description="Answers, docs, and ways to reach us." />
 
+      <div className="mb-5">
+        <SupportTicketsPanel storeId={storeId} />
+      </div>
+
       <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <a
-          href="mailto:support@foundry.local"
+          href={`mailto:${supportEmail}`}
           className="fdy-card-hover rounded-2xl border border-line bg-surface p-5"
         >
           <Mail size={18} className="mb-3 text-copper" />
           <div className="text-[14px] font-semibold text-ink">Email support</div>
           <p className="mt-1 text-[12.5px] text-ink-faint">
-            support@foundry.local — replies within one business day.
+            {supportEmail} — replies within one business day.
           </p>
         </a>
         <Link

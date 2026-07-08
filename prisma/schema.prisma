@@ -26,6 +26,7 @@ model User {
   passwordHash  String
   image         String?
   role          String    @default("USER") // USER | ADMIN
+  status        String    @default("ACTIVE") // ACTIVE | SUSPENDED
   emailVerified DateTime?
   lastLoginAt   DateTime?
   createdAt     DateTime  @default(now())
@@ -54,8 +55,11 @@ model User {
   aiDrafts        AiDraft[]
   aiThreads       AiThread[]
   consentRecords  ConsentRecord[]
+  supportTickets  SupportTicket[]
+  supportMessages SupportTicketMessage[]
 
   @@index([email])
+  @@index([status])
 }
 
 model UserPreferences {
@@ -182,6 +186,10 @@ model Store {
   aiThreads       AiThread[]
   reports         Report[]
   apiRequestLogs  ApiRequestLog[]
+  storefrontTemplates StorefrontTemplate[]
+  templatePurchases   StorefrontTemplatePurchase[]
+  emailTemplates      EmailTemplate[]
+  supportTickets      SupportTicket[]
 
   @@index([ownerId])
   @@index([workspaceId])
@@ -758,6 +766,7 @@ model EmailCampaign {
   subject        String
   preheader      String?
   body           String?
+  templateId     String?
   status         String    @default("DRAFT") // DRAFT | SCHEDULED | SENT
   scheduledAt    DateTime?
   sentAt         DateTime?
@@ -1249,4 +1258,101 @@ model ConsentRecord {
 
   @@index([userId, type, createdAt])
   @@index([type, createdAt])
+}
+
+/// ------------------------------------------------------------------
+/// TEMPLATES & PLATFORM SUPPORT
+/// ------------------------------------------------------------------
+
+/// Storefront theme presets — platform free/paid or seller custom templates.
+model StorefrontTemplate {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  description  String?
+  tier         String   // FREE | PAID | CUSTOM
+  priceCents   Int      @default(0)
+  industry     String?
+  previewColor String?  // hex accent for gallery cards
+  snapshotJson String   // JSON theme snapshot
+  storeId      String?  // set when seller saves a custom template
+  createdById  String?
+  isPublished  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  store     Store?                       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  purchases StorefrontTemplatePurchase[]
+
+  @@index([tier, isPublished])
+  @@index([storeId])
+}
+
+model StorefrontTemplatePurchase {
+  id          String   @id @default(cuid())
+  storeId     String
+  templateId  String
+  purchasedAt DateTime @default(now())
+
+  store    Store              @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  template StorefrontTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, templateId])
+  @@index([storeId])
+}
+
+/// Reusable email layouts — platform library or seller custom templates.
+model EmailTemplate {
+  id         String   @id @default(cuid())
+  storeId    String?  // null = platform template
+  tier       String   // FREE | PAID | CUSTOM
+  kind       String   // TRANSACTIONAL | MARKETING
+  slug       String
+  name       String
+  subject    String
+  preheader  String?
+  bodyHtml   String
+  bodyText   String?
+  priceCents Int      @default(0)
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  store Store? @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, slug])
+  @@index([tier, kind])
+}
+
+/// Merchant → Foundry support tickets.
+model SupportTicket {
+  id        String   @id @default(cuid())
+  userId    String
+  storeId   String?
+  subject   String
+  status    String   @default("OPEN") // OPEN | IN_PROGRESS | WAITING | RESOLVED | CLOSED
+  priority  String   @default("NORMAL") // LOW | NORMAL | HIGH | URGENT
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  store    Store?                 @relation(fields: [storeId], references: [id], onDelete: SetNull)
+  messages SupportTicketMessage[]
+
+  @@index([status, createdAt])
+  @@index([userId])
+}
+
+model SupportTicketMessage {
+  id        String   @id @default(cuid())
+  ticketId  String
+  authorId  String?
+  body      String
+  isStaff   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  ticket SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  author User?         @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([ticketId, createdAt])
 }

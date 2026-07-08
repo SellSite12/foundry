@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { getStoreAccess } from "@/lib/seller/access";
 import { formatMoney } from "@/lib/money";
 import { PageHeader, Panel, StatCard } from "@/components/seller/ui";
+import { EmailTemplatesPanel } from "@/components/seller/EmailTemplatesPanel";
 import { MarketingTools } from "@/components/seller/MarketingTools";
 
 export const metadata = { title: "Marketing" };
@@ -78,6 +79,10 @@ export default async function MarketingPage({
               : `${discountCount} active discount${discountCount === 1 ? "" : "s"} ready to apply to orders.`}
           </p>
         </Panel>
+      </div>
+
+      <div className="mb-5">
+        <EmailTemplatesPanel storeId={storeId} />
       </div>
 
       <MarketingTools

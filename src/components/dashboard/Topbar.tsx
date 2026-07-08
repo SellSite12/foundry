@@ -30,7 +30,7 @@ export function Topbar({ user, unreadCount }: Props) {
             </span>
           )}
         </Link>
-        <UserMenu name={user.name} email={user.email} image={user.image} />
+        <UserMenu name={user.name} email={user.email} image={user.image} role={user.role} />
       </div>
     </header>
   );

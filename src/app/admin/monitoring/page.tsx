@@ -1,6 +1,3 @@
-import { notFound, redirect } from "next/navigation";
-
-import { requireUser } from "@/lib/auth/session";
 import { db } from "@/lib/db";
 import { getQueueStats } from "@/lib/jobs/queue";
 import { PageHeader, Panel } from "@/components/seller/ui";
@@ -8,9 +5,6 @@ import { PageHeader, Panel } from "@/components/seller/ui";
 export const metadata = { title: "Platform monitoring" };
 
 export default async function AdminMonitoringPage() {
-  const user = await requireUser();
-  if (user.role !== "ADMIN") redirect("/");
-
   const [users, stores, orders, queue, apiLogs, failedJobs] = await Promise.all([
     db.user.count(),
     db.store.count(),

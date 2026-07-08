@@ -5,6 +5,9 @@
 export const USER_ROLES = ["USER", "ADMIN"] as const;
 export type UserRole = (typeof USER_ROLES)[number];
 
+export const USER_STATUSES = ["ACTIVE", "SUSPENDED"] as const;
+export type UserStatus = (typeof USER_STATUSES)[number];
+
 export const AUTH_TOKEN_TYPES = {
   EMAIL_VERIFICATION: "EMAIL_VERIFICATION",
   PASSWORD_RESET: "PASSWORD_RESET",
@@ -264,3 +267,25 @@ export const REPORT_FORMATS = ["CSV", "JSON"] as const;
 export const WORKSPACE_ROLES = ["OWNER", "ADMIN", "MANAGER", "MEMBER"] as const;
 export const API_SCOPES = ["read", "read_write"] as const;
 export const API_RATE_LIMIT_PER_MINUTE = 120;
+
+// ---------------------------------------------------------------
+// Templates & platform support
+// ---------------------------------------------------------------
+
+export const TEMPLATE_TIERS = ["FREE", "PAID", "CUSTOM"] as const;
+export type TemplateTier = (typeof TEMPLATE_TIERS)[number];
+
+export const EMAIL_TEMPLATE_KINDS = ["TRANSACTIONAL", "MARKETING"] as const;
+export type EmailTemplateKind = (typeof EMAIL_TEMPLATE_KINDS)[number];
+
+export const SUPPORT_TICKET_STATUSES = [
+  "OPEN",
+  "IN_PROGRESS",
+  "WAITING",
+  "RESOLVED",
+  "CLOSED",
+] as const;
+export type SupportTicketStatus = (typeof SUPPORT_TICKET_STATUSES)[number];
+
+export const SUPPORT_PRIORITIES = ["LOW", "NORMAL", "HIGH", "URGENT"] as const;
+export type SupportPriority = (typeof SUPPORT_PRIORITIES)[number];

@@ -134,6 +134,13 @@ const STATUS_COLORS: Record<string, string> = {
   SENT: "bg-success-soft text-success",
   SCHEDULED: "bg-copper-soft text-copper",
   HIDDEN: "bg-hover text-ink-faint",
+  OPEN: "bg-copper-soft text-copper",
+  IN_PROGRESS: "bg-copper-soft text-copper",
+  WAITING: "bg-hover text-ink-dim",
+  RESOLVED: "bg-green-500/10 text-green-400",
+  CLOSED: "bg-hover text-ink-faint",
+  SUSPENDED: "bg-danger/10 text-danger",
+  URGENT: "bg-danger/10 text-danger",
 };
 
 export function StatusBadge({ status }: { status: string }) {

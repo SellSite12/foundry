@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { api } from "@/lib/client/api";
+import { AddressFields } from "@/components/ui/AddressFields";
 
 type Address = {
   id: string;
@@ -158,29 +159,35 @@ export function AddressBook() {
               <label htmlFor="adr-phone" className={label}>Phone (optional)</label>
               <input id="adr-phone" className={input} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} autoComplete="tel" />
             </div>
-            <div>
-              <label htmlFor="adr-line1" className={label}>Address line 1</label>
-              <input id="adr-line1" className={input} value={form.line1} onChange={(e) => setForm({ ...form, line1: e.target.value })} required autoComplete="address-line1" />
-            </div>
-            <div>
-              <label htmlFor="adr-line2" className={label}>Address line 2 (optional)</label>
-              <input id="adr-line2" className={input} value={form.line2} onChange={(e) => setForm({ ...form, line2: e.target.value })} autoComplete="address-line2" />
-            </div>
-            <div>
-              <label htmlFor="adr-city" className={label}>City</label>
-              <input id="adr-city" className={input} value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} required autoComplete="address-level2" />
-            </div>
-            <div>
-              <label htmlFor="adr-state" className={label}>State / region</label>
-              <input id="adr-state" className={input} value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} autoComplete="address-level1" />
-            </div>
-            <div>
-              <label htmlFor="adr-postal" className={label}>Postal code</label>
-              <input id="adr-postal" className={input} value={form.postalCode} onChange={(e) => setForm({ ...form, postalCode: e.target.value })} required autoComplete="postal-code" />
-            </div>
-            <div>
-              <label htmlFor="adr-country" className={label}>Country</label>
-              <input id="adr-country" className={input} value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} required autoComplete="country-name" />
+            <div className="sm:col-span-2">
+              <AddressFields
+                idPrefix="adr"
+                variant="plain"
+                inputClassName={input}
+                labelClassName={label}
+                line2Label="Address line 2 (optional)"
+                stateLabel="State / region"
+                gridClassName="grid gap-4 sm:grid-cols-2"
+                value={{
+                  line1: form.line1,
+                  line2: form.line2,
+                  city: form.city,
+                  state: form.state,
+                  postalCode: form.postalCode,
+                  country: form.country,
+                }}
+                onChange={(address) =>
+                  setForm((f) => ({
+                    ...f,
+                    line1: address.line1,
+                    line2: address.line2,
+                    city: address.city,
+                    state: address.state,
+                    postalCode: address.postalCode,
+                    country: address.country,
+                  }))
+                }
+              />
             </div>
           </div>
           <label className="mt-4 flex items-center gap-2 text-[13.5px] text-ink-dim">

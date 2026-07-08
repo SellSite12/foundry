@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, Settings, User, Shield } from "lucide-react";
 
 import { Avatar } from "@/components/ui/Avatar";
 import { api } from "@/lib/client/api";
@@ -12,9 +12,10 @@ type Props = {
   name: string;
   email: string;
   image: string | null;
+  role?: string;
 };
 
-export function UserMenu({ name, email, image }: Props) {
+export function UserMenu({ name, email, image, role }: Props) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
@@ -76,6 +77,16 @@ export function UserMenu({ name, email, image }: Props) {
             >
               <Settings size={15} /> Settings
             </Link>
+            {role === "ADMIN" ? (
+              <Link
+                href="/admin"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] text-[#B8AFA0] hover:bg-[rgba(255,255,255,0.04)] hover:text-[#EFE9DF]"
+                role="menuitem"
+              >
+                <Shield size={15} /> Platform admin
+              </Link>
+            ) : null}
             <button
               onClick={logout}
               disabled={loggingOut}

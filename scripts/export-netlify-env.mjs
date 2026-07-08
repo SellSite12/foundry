@@ -16,6 +16,7 @@ const KEYS = [
   "METRICS_SECRET",
   "RESEND_API_KEY",
   "EMAIL_FROM",
+  "SUPPORT_EMAIL",
 ];
 
 const OUT = path.join(process.cwd(), "netlify-env.import");

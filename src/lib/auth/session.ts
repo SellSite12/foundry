@@ -13,6 +13,7 @@ export type SessionUser = {
   name: string;
   image: string | null;
   role: string;
+  status: string;
   emailVerified: Date | null;
   createdAt: Date;
 };
@@ -79,6 +80,7 @@ export const getCurrentUser = cache(async (): Promise<SessionUser | null> => {
           name: true,
           image: true,
           role: true,
+          status: true,
           emailVerified: true,
           createdAt: true,
         },
@@ -91,6 +93,7 @@ export const getCurrentUser = cache(async (): Promise<SessionUser | null> => {
     await db.session.delete({ where: { id: session.id } }).catch(() => {});
     return null;
   }
+  if (session.user.status === "SUSPENDED") return null;
 
   return session.user;
 });

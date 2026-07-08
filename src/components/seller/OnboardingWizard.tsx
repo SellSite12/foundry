@@ -6,6 +6,7 @@ import { Check, ArrowRight, ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { AddressFields } from "@/components/ui/AddressFields";
 import { Alert } from "@/components/ui/Alert";
 import { api } from "@/lib/client/api";
 import { INDUSTRIES, CURRENCIES, TIMEZONES } from "@/lib/constants";
@@ -257,34 +258,27 @@ export function OnboardingWizard({ store }: { store: StoreDraft }) {
               error={fieldErrors.website}
               placeholder="https://yourbusiness.com"
             />
-            <Input
-              label="Address line 1"
-              value={form.addressLine1}
-              onChange={(e) => set("addressLine1", e.target.value)}
+            <AddressFields
+              value={{
+                line1: form.addressLine1,
+                line2: form.addressLine2,
+                city: form.city,
+                state: form.state,
+                postalCode: form.postalCode,
+                country: form.country,
+              }}
+              onChange={(address) =>
+                setForm((f) => ({
+                  ...f,
+                  addressLine1: address.line1,
+                  addressLine2: address.line2,
+                  city: address.city,
+                  state: address.state,
+                  postalCode: address.postalCode,
+                  country: address.country,
+                }))
+              }
             />
-            <Input
-              label="Address line 2"
-              value={form.addressLine2}
-              onChange={(e) => set("addressLine2", e.target.value)}
-            />
-            <div className="grid grid-cols-2 gap-4">
-              <Input label="City" value={form.city} onChange={(e) => set("city", e.target.value)} />
-              <Input
-                label="State / Province"
-                value={form.state}
-                onChange={(e) => set("state", e.target.value)}
-              />
-              <Input
-                label="Postal code"
-                value={form.postalCode}
-                onChange={(e) => set("postalCode", e.target.value)}
-              />
-              <Input
-                label="Country"
-                value={form.country}
-                onChange={(e) => set("country", e.target.value)}
-              />
-            </div>
           </div>
         )}
 
