@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaNeon } from "@prisma/adapter-neon";
-import { neonConfig } from "@neondatabase/serverless";
-import ws from "ws";
+import { PrismaPg } from "@prisma/adapter-pg";
+import pg from "pg";
 
 import { ensureDatabaseUrlEnv, resolveDatabaseUrl } from "@/lib/database-url";
 
@@ -14,16 +13,13 @@ function createPrismaClient(): PrismaClient {
   ensureDatabaseUrlEnv();
   const databaseUrl = resolveDatabaseUrl();
 
-  if (databaseUrl?.includes("neon.tech")) {
-    neonConfig.webSocketConstructor = ws;
-    const adapter = new PrismaNeon({ connectionString: databaseUrl });
+  if (databaseUrl?.startsWith("postgresql")) {
+    const pool = new pg.Pool({ connectionString: databaseUrl });
+    const adapter = new PrismaPg(pool);
     return new PrismaClient({ adapter, log: [...log] });
   }
 
-  return new PrismaClient({
-    datasources: databaseUrl ? { db: { url: databaseUrl } } : undefined,
-    log: [...log],
-  });
+  return new PrismaClient({ log: [...log] });
 }
 
 export const db = globalForPrisma.prisma ?? createPrismaClient();
