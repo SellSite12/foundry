@@ -6,6 +6,8 @@ import { SkipLink } from "@/components/SkipLink";
 import { CookieConsent } from "@/components/CookieConsent";
 import { buildMetadata } from "@/lib/seo/metadata";
 
+export const dynamic = "force-dynamic";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
