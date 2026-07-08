@@ -1,5 +1,5 @@
 [build]
-  command = "node scripts/netlify-build.mjs"
+  command = "npm exec -- prisma generate && npm exec -- next build"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
