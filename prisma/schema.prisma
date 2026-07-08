@@ -5,7 +5,8 @@
 // Allowed values for status/type fields live in src/lib/constants.ts.
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
