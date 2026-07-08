@@ -1,11 +1,12 @@
 [build]
   command = "node scripts/netlify-build.mjs"
+  publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
   NETLIFY = "true"
   UPLOAD_STORE = "blobs"
   APP_VERSION = "1.0.0"
