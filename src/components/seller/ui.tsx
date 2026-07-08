@@ -196,19 +196,22 @@ export function Modal({
   title,
   children,
   wide = false,
+  xl = false,
 }: {
   open: boolean;
   onClose: () => void;
   title: string;
   children: ReactNode;
   wide?: boolean;
+  xl?: boolean;
 }) {
   if (!open) return null;
+  const maxW = xl ? "max-w-5xl" : wide ? "max-w-2xl" : "max-w-md";
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto p-4 pt-[8vh]">
       <div className="fixed inset-0 bg-black/60" onClick={onClose} />
       <div
-        className={`fdy-pop relative w-full ${wide ? "max-w-2xl" : "max-w-md"} rounded-2xl border border-line-strong bg-surface p-6 shadow-[0_40px_100px_rgba(0,0,0,0.4)]`}
+        className={`fdy-pop relative w-full ${maxW} rounded-2xl border border-line-strong bg-surface p-6 shadow-[0_40px_100px_rgba(0,0,0,0.4)]`}
         role="dialog"
         aria-label={title}
       >

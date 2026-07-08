@@ -611,7 +611,8 @@
   .sf-hero-bokeh,
   .sf-hero-steam,
   .sf-hero-prism,
-  .sf-hero-marble-vein {
+  .sf-hero-marble-vein,
+  .sf-thumb-preview {
     animation: none !important;
   }
 
@@ -624,4 +625,114 @@
   [data-sf-motion="cinematic"] .sf-product-card:hover {
     transform: translateY(-4px);
   }
+}
+
+/* Visual profiles — whole-page personality per category */
+[data-sf-profile="fashion"] { --sf-radius: 2px; }
+[data-sf-profile="fashion"] .sf-section h2 { font-family: Georgia, serif; letter-spacing: 0.02em; }
+[data-sf-profile="food"] { --sf-radius: 20px; }
+[data-sf-profile="food"] .sf-hero-eyebrow { background: rgba(255, 200, 100, 0.25); }
+[data-sf-profile="beauty"] .sf-section { backdrop-filter: blur(0); }
+[data-sf-profile="beauty"] .sf-product-card { border-radius: 24px; }
+[data-sf-profile="tech"] { --sf-font: var(--font-geist-mono), monospace; }
+[data-sf-profile="fitness"] .sf-hero-cta { text-transform: uppercase; letter-spacing: 0.08em; }
+[data-sf-profile="jewelry"] .sf-section h2 { color: var(--sf-primary); }
+[data-sf-profile="streetwear"] .sf-product-card { border: 1px solid color-mix(in srgb, var(--sf-primary) 40%, transparent); }
+[data-sf-profile="art"] .sf-section:nth-child(odd) { transform: rotate(-0.3deg); }
+[data-sf-profile="home"] .sf-product-card { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); }
+[data-sf-profile="kids"] { --sf-radius: 18px; }
+[data-sf-profile="editorial"] .sf-section h2 { font-size: 2rem; font-weight: 300; }
+
+/* Gallery thumb mini-previews */
+.sf-thumb-preview {
+  position: absolute;
+  inset: 0;
+  background: #0c0a09;
+  overflow: hidden;
+}
+
+.sf-thumb-preview-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1rem;
+  gap: 0.35rem;
+  z-index: 2;
+}
+
+.sf-thumb-preview-line {
+  display: block;
+  height: 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.85);
+}
+.sf-thumb-preview-line-lg { width: 55%; height: 10px; }
+.sf-thumb-preview-line-sm { width: 38%; opacity: 0.6; }
+.sf-thumb-preview-cta {
+  width: 28%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--thumb-accent, #e8a33d);
+  margin-top: 0.25rem;
+}
+
+.sf-thumb-aurora::before,
+.sf-thumb-bokeh::before,
+.sf-thumb-sunrise::before,
+.sf-thumb-orbit::before,
+.sf-thumb-hologram::before,
+.sf-thumb-marble::before,
+.sf-thumb-prism::before,
+.sf-thumb-neon-grid::before,
+.sf-thumb-spotlight::before,
+.sf-thumb-depth::before,
+.sf-thumb-cinematic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  animation: sf-thumb-shift 5s ease infinite;
+}
+
+.sf-thumb-aurora::before {
+  background: radial-gradient(circle at 20% 30%, var(--thumb-accent), transparent 50%),
+    radial-gradient(circle at 80% 70%, #06b6d4, transparent 45%);
+}
+.sf-thumb-neon-grid::before {
+  background: #030308 linear-gradient(var(--thumb-accent) 1px, transparent 1px) 0 0 / 16px 16px;
+}
+.sf-thumb-orbit::before {
+  background: radial-gradient(circle at 50% 55%, var(--thumb-accent), transparent 35%);
+}
+.sf-thumb-sunrise::before {
+  background: radial-gradient(ellipse at 50% 100%, var(--thumb-accent), #dc2626 40%, #1a1008 70%);
+}
+.sf-thumb-bokeh::before {
+  background: radial-gradient(circle at 30% 40%, color-mix(in srgb, var(--thumb-accent) 60%, #fff), transparent 40%),
+    radial-gradient(circle at 70% 60%, color-mix(in srgb, var(--thumb-accent) 40%, #fff), transparent 35%);
+}
+.sf-thumb-hologram::before {
+  background: linear-gradient(125deg, transparent, var(--thumb-accent), #22d3ee, transparent);
+  opacity: 0.5;
+}
+.sf-thumb-marble::before {
+  background: linear-gradient(105deg, #1a1a1a, var(--thumb-accent), #1a1a1a);
+  opacity: 0.45;
+}
+.sf-thumb-spotlight::before {
+  background: conic-gradient(from 0deg, transparent, var(--thumb-accent), transparent);
+  opacity: 0.35;
+}
+.sf-thumb-prism::before {
+  background: conic-gradient(var(--thumb-accent), #f472b6, #fff, var(--thumb-accent));
+  filter: blur(20px);
+  opacity: 0.5;
+}
+.sf-thumb-depth::before {
+  background: linear-gradient(135deg, #6366f1, var(--thumb-accent));
+}
+.sf-thumb-cinematic::before {
+  background: linear-gradient(to bottom, var(--thumb-accent), #000);
 }

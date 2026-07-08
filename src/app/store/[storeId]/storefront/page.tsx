@@ -5,6 +5,7 @@ import { getStoreAccess } from "@/lib/seller/access";
 import { getOrCreateTheme, parseTestimonials, parseFaq } from "@/lib/shop/theme";
 import { PageHeader, Panel } from "@/components/seller/ui";
 import { TemplateGallery } from "@/components/seller/TemplateGallery";
+import { TemplateCodeStudio } from "@/components/seller/TemplateCodeStudio";
 import "@/app/shop/storefront-effects.css";
 import { ThemeCustomizer } from "@/components/seller/ThemeCustomizer";
 import { StorePagesEditor } from "@/components/seller/StorePagesEditor";
@@ -34,6 +35,7 @@ export default async function StorefrontSettingsPage({
         description={`Customize how customers see your store at /shop/${store.slug} — changes save automatically and go live instantly.`}
       />
 
+      <TemplateCodeStudio storeId={storeId} />
       <TemplateGallery storeId={storeId} />
 
       <ThemeCustomizer

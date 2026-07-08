@@ -18,6 +18,7 @@ import {
 } from "@/lib/shop/theme";
 import { ProductCard, SectionHeading, EmptyNote, Stars } from "@/components/storefront/ui";
 import { StorefrontHero } from "@/components/storefront/StorefrontHero";
+import { CodeStorefrontView } from "@/components/storefront/CodeStorefrontView";
 
 export default async function StorefrontHome({
   params,
@@ -31,6 +32,32 @@ export default async function StorefrontHome({
   const theme = await getOrCreateTheme(store.id);
   const sections = parseSections(theme);
   await trackVisit(store.id, `/shop/${slug}`);
+
+  if (theme.layoutMode === "code" && theme.customHtml) {
+    const products = await db.product.findMany({
+      where: publicProductWhere(store.id),
+      orderBy: { updatedAt: "desc" },
+      take: 12,
+      select: PUBLIC_PRODUCT_CARD_SELECT,
+    });
+    return (
+      <CodeStorefrontView
+        store={{
+          name: store.name,
+          slug: store.slug,
+          description: store.description,
+          logo: store.logo,
+          industry: store.industry,
+        }}
+        html={theme.customHtml}
+        css={theme.customCss ?? ""}
+        js={theme.customJs ?? ""}
+        products={products}
+        heroHeading={theme.bannerHeading}
+        heroSubheading={theme.bannerSubheading}
+      />
+    );
+  }
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6">

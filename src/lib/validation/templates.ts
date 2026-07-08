@@ -2,6 +2,12 @@ import { z } from "zod";
 
 import { EMAIL_TEMPLATE_KINDS, TEMPLATE_TIERS } from "@/lib/constants";
 
+const codeFields = {
+  html: z.string().trim().min(10).max(100_000),
+  css: z.string().max(100_000).optional().default(""),
+  js: z.string().max(50_000).optional().default(""),
+};
+
 export const templateActionSchema = z.discriminatedUnion("action", [
   z.object({
     action: z.literal("apply"),
@@ -15,6 +21,16 @@ export const templateActionSchema = z.discriminatedUnion("action", [
     action: z.literal("save"),
     name: z.string().trim().min(2).max(80),
     description: z.string().trim().max(300).optional(),
+  }),
+  z.object({
+    action: z.literal("apply-code"),
+    ...codeFields,
+  }),
+  z.object({
+    action: z.literal("save-code"),
+    name: z.string().trim().min(2).max(80),
+    description: z.string().trim().max(300).optional(),
+    ...codeFields,
   }),
 ]);
 

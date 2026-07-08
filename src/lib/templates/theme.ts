@@ -4,6 +4,8 @@ import { db } from "@/lib/db";
 import type { FaqEntry, Testimonial, ThemeSection } from "@/lib/shop/theme";
 import { DEFAULT_SECTIONS } from "@/lib/shop/theme";
 
+import type { CodeTemplateSnapshot } from "@/lib/templates/code";
+
 export type ThemeSnapshot = {
   primaryColor: string;
   accentColor: string;
@@ -20,6 +22,9 @@ export type ThemeSnapshot = {
   bannerSubheading?: string | null;
   heroStyle?: string;
   motionPreset?: string;
+  visualProfile?: string | null;
+  layoutMode?: "builtin" | "code";
+  code?: CodeTemplateSnapshot;
   sections?: ThemeSection[];
   testimonials?: Testimonial[];
   faq?: FaqEntry[];
@@ -42,6 +47,12 @@ export function themeToSnapshot(theme: StoreTheme, sections: ThemeSection[], tes
     bannerSubheading: theme.bannerSubheading,
     heroStyle: theme.heroStyle,
     motionPreset: theme.motionPreset,
+    visualProfile: theme.visualProfile,
+    layoutMode: theme.layoutMode === "code" ? "code" : "builtin",
+    code:
+      theme.layoutMode === "code" && theme.customHtml
+        ? { html: theme.customHtml, css: theme.customCss ?? "", js: theme.customJs ?? "" }
+        : undefined,
     sections,
     testimonials,
     faq,
@@ -49,6 +60,8 @@ export function themeToSnapshot(theme: StoreTheme, sections: ThemeSection[], tes
 }
 
 export async function applyThemeSnapshot(storeId: string, snapshot: ThemeSnapshot) {
+  const isCode = snapshot.layoutMode === "code" && snapshot.code?.html;
+
   await db.storeTheme.upsert({
     where: { storeId },
     create: {
@@ -68,6 +81,11 @@ export async function applyThemeSnapshot(storeId: string, snapshot: ThemeSnapsho
       bannerSubheading: snapshot.bannerSubheading ?? null,
       heroStyle: snapshot.heroStyle ?? "classic",
       motionPreset: snapshot.motionPreset ?? "none",
+      visualProfile: snapshot.visualProfile ?? null,
+      layoutMode: isCode ? "code" : "builtin",
+      customHtml: isCode ? snapshot.code!.html : null,
+      customCss: isCode ? snapshot.code!.css : null,
+      customJs: isCode ? snapshot.code!.js : null,
       sectionsJson: JSON.stringify(snapshot.sections ?? DEFAULT_SECTIONS),
       testimonialsJson: JSON.stringify(snapshot.testimonials ?? []),
       faqJson: JSON.stringify(snapshot.faq ?? []),
@@ -88,6 +106,11 @@ export async function applyThemeSnapshot(storeId: string, snapshot: ThemeSnapsho
       bannerSubheading: snapshot.bannerSubheading ?? null,
       heroStyle: snapshot.heroStyle ?? "classic",
       motionPreset: snapshot.motionPreset ?? "none",
+      visualProfile: snapshot.visualProfile ?? null,
+      layoutMode: isCode ? "code" : "builtin",
+      customHtml: isCode ? snapshot.code!.html : null,
+      customCss: isCode ? snapshot.code!.css : null,
+      customJs: isCode ? snapshot.code!.js : null,
       sectionsJson: JSON.stringify(snapshot.sections ?? DEFAULT_SECTIONS),
       testimonialsJson: JSON.stringify(snapshot.testimonials ?? []),
       faqJson: JSON.stringify(snapshot.faq ?? []),

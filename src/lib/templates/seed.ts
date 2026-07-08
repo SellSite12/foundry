@@ -716,12 +716,38 @@ const EMAIL_TEMPLATES: EmailSeed[] = [
   },
 ];
 
-let seeded = false;
+/** Visual profiles make each category feel distinct across the whole page, not just the hero. */
+const VISUAL_PROFILE_BY_SLUG: Record<string, string> = {
+  "classic-copper": "general",
+  "light-minimal": "fashion",
+  "bakery-warm": "food",
+  "beauty-glow": "beauty",
+  "tech-mono": "tech",
+  "home-haven": "home",
+  "fitness-fresh": "fitness",
+  "pet-corner": "kids",
+  "luxury-noir": "fashion",
+  goldsmith: "jewelry",
+  "glow-lab": "beauty",
+  "farm-table": "food",
+  "iron-pulse": "fitness",
+  "neon-pop": "streetwear",
+  "code-forge": "tech",
+  "artist-prism": "art",
+  "editorial-magazine": "editorial",
+  "obsidian-depth": "home",
+  "wonder-kids": "kids",
+  "aurora-drift": "art",
+};
+
+function enrichSnapshot(slug: string, snapshot: ThemeSnapshot): ThemeSnapshot {
+  return {
+    ...snapshot,
+    visualProfile: snapshot.visualProfile ?? VISUAL_PROFILE_BY_SLUG[slug] ?? "general",
+  };
+}
 
 export async function ensurePlatformTemplates() {
-  if (seeded) return;
-  seeded = true;
-
   for (const t of FREE_STOREFRONT) {
     await db.storefrontTemplate.upsert({
       where: { slug: t.slug },
@@ -732,7 +758,7 @@ export async function ensurePlatformTemplates() {
         tier: "FREE",
         industry: t.industry,
         previewColor: t.previewColor,
-        snapshotJson: JSON.stringify(t.snapshot),
+        snapshotJson: JSON.stringify(enrichSnapshot(t.slug, t.snapshot)),
         isPublished: true,
       },
       update: {
@@ -740,7 +766,7 @@ export async function ensurePlatformTemplates() {
         description: t.description,
         industry: t.industry,
         previewColor: t.previewColor,
-        snapshotJson: JSON.stringify(t.snapshot),
+        snapshotJson: JSON.stringify(enrichSnapshot(t.slug, t.snapshot)),
         isPublished: true,
       },
     });
@@ -757,7 +783,7 @@ export async function ensurePlatformTemplates() {
         priceCents: PAID_PRICES[t.slug] ?? 2900,
         industry: t.industry,
         previewColor: t.previewColor,
-        snapshotJson: JSON.stringify(t.snapshot),
+        snapshotJson: JSON.stringify(enrichSnapshot(t.slug, t.snapshot)),
         isPublished: true,
       },
       update: {
@@ -766,7 +792,7 @@ export async function ensurePlatformTemplates() {
         priceCents: PAID_PRICES[t.slug] ?? 2900,
         industry: t.industry,
         previewColor: t.previewColor,
-        snapshotJson: JSON.stringify(t.snapshot),
+        snapshotJson: JSON.stringify(enrichSnapshot(t.slug, t.snapshot)),
         isPublished: true,
       },
     });

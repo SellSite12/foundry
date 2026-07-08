@@ -57,6 +57,7 @@ export default async function StorefrontLayout({
       className="relative flex min-h-screen flex-col"
       data-sf-hero={theme.heroStyle ?? "classic"}
       data-sf-motion={theme.motionPreset ?? "none"}
+      data-sf-profile={theme.visualProfile ?? "general"}
       style={{
         ...themeCssVars(theme),
         background: "var(--sf-bg)",

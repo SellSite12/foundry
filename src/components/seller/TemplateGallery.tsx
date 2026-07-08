@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Alert } from "@/components/ui/Alert";
 import { Modal } from "@/components/seller/ui";
+import { TemplateThumbHero } from "@/components/seller/TemplateThumbHero";
 
 type Template = {
   id: string;
@@ -23,6 +24,8 @@ type Template = {
   purchased: boolean;
   heroStyle?: string;
   motionPreset?: string;
+  layoutMode?: string;
+  visualProfile?: string | null;
 };
 
 export function TemplateGallery({ storeId }: { storeId: string }) {
@@ -113,7 +116,8 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
             Storefront templates
           </div>
           <p className="mt-1 text-[13px] text-ink-dim">
-            Preview any template with your real products before you apply or purchase.
+            Preview shows the real design — click <strong className="text-ink">Apply</strong> to switch your live store.
+            Templates differ in hero animation, colors, and category styling.
           </p>
         </div>
         <Button variant="secondary" onClick={() => setSaveOpen(true)}>
@@ -178,16 +182,14 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
               key={t.id}
               className="flex flex-col overflow-hidden rounded-xl border border-line bg-base"
             >
-              <div
-                className={`flex h-24 items-end overflow-hidden p-3 ${t.tier === "PAID" ? "sf-template-thumb-paid" : ""}`}
-                style={{
-                  background:
-                    t.tier === "PAID"
-                      ? `linear-gradient(135deg, ${t.previewColor ?? "#E8A33D"}22, ${t.previewColor ?? "#E8A33D"}66)`
-                      : `linear-gradient(135deg, ${t.previewColor ?? "#E8A33D"}33, ${t.previewColor ?? "#E8A33D"}88)`,
-                }}
-              >
-                <div className="flex flex-wrap gap-1">
+              <div className="relative h-28 overflow-hidden">
+                <TemplateThumbHero
+                  heroStyle={t.layoutMode === "code" ? "hologram" : t.heroStyle}
+                  motionPreset={t.motionPreset}
+                  previewColor={t.previewColor ?? "#E8A33D"}
+                  tier={t.tier}
+                />
+                <div className="absolute bottom-2 left-2 flex flex-wrap gap-1">
                   <span
                     className="rounded-md px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
                     style={{ background: t.previewColor ?? "#E8A33D", color: "#0C0A09" }}
@@ -202,6 +204,11 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
                   {t.motionPreset !== "none" ? (
                     <span className="rounded-md bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
                       Animated
+                    </span>
+                  ) : null}
+                  {t.layoutMode === "code" ? (
+                    <span className="rounded-md bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
+                      Code
                     </span>
                   ) : null}
                 </div>

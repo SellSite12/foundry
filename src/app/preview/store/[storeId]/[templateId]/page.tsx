@@ -57,6 +57,7 @@ export default async function StandaloneTemplatePreviewPage({
         logo: store.logo,
         businessEmail: store.businessEmail,
         phone: store.phone,
+        industry: store.industry,
       }}
       theme={theme}
       products={products}

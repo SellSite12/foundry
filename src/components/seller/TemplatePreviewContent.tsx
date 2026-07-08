@@ -12,6 +12,7 @@ import { StorefrontHeader } from "@/components/storefront/StorefrontHeader";
 import { StorefrontFooter } from "@/components/storefront/StorefrontFooter";
 import { StorefrontHero } from "@/components/storefront/StorefrontHero";
 import { StorefrontAmbient } from "@/components/storefront/StorefrontAmbient";
+import { CodeStorefrontView } from "@/components/storefront/CodeStorefrontView";
 import { ProductCard, SectionHeading, EmptyNote, Stars } from "@/components/storefront/ui";
 import "@/app/shop/storefront-effects.css";
 
@@ -42,6 +43,7 @@ type StoreInfo = {
   logo: string | null;
   businessEmail: string | null;
   phone: string | null;
+  industry?: string | null;
 };
 
 export function TemplatePreviewContent({
@@ -67,11 +69,60 @@ export function TemplatePreviewContent({
     { label: "Contact", href: "#" },
   ];
 
+  if (theme.layoutMode === "code" && theme.customHtml) {
+    return (
+      <div
+        className="relative flex min-h-full flex-col"
+        style={{
+          ...themeCssVars(theme),
+          background: "var(--sf-bg)",
+          color: "var(--sf-text)",
+        }}
+      >
+        <StorefrontHeader
+          slug={slug}
+          storeName={store.name}
+          logo={store.logo}
+          headerStyle={theme.headerStyle}
+          cartCount={0}
+          loggedIn={false}
+          navLinks={navLinks}
+        />
+        <main className="relative z-[1] flex-1">
+          <CodeStorefrontView
+            store={{
+              name: store.name,
+              slug: store.slug,
+              description: store.description,
+              logo: store.logo,
+              industry: store.industry ?? null,
+            }}
+            html={theme.customHtml}
+            css={theme.customCss ?? ""}
+            js={theme.customJs ?? ""}
+            products={products}
+            heroHeading={theme.bannerHeading}
+            heroSubheading={theme.bannerSubheading}
+          />
+        </main>
+        <StorefrontFooter
+          slug={slug}
+          storeName={store.name}
+          description={store.description}
+          footerStyle={theme.footerStyle}
+          businessEmail={store.businessEmail}
+          phone={store.phone}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className="relative flex min-h-full flex-col"
       data-sf-hero={theme.heroStyle ?? "classic"}
       data-sf-motion={theme.motionPreset ?? "none"}
+      data-sf-profile={theme.visualProfile ?? "general"}
       style={{
         ...themeCssVars(theme),
         background: "var(--sf-bg)",

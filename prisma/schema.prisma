@@ -225,8 +225,15 @@ model StoreTheme {
   bannerSubheading    String?
 
   // visual effects (premium templates)
-  heroStyle    String @default("classic") // classic | aurora | depth | spotlight | neon-grid | cinematic
+  heroStyle    String @default("classic") // classic | aurora | depth | spotlight | neon-grid | cinematic | ...
   motionPreset String @default("none") // none | subtle | cinematic | premium
+  visualProfile String? // fashion | food | beauty | tech | fitness | jewelry | art | home | kids | streetwear | editorial
+
+  // coded custom storefront (seller-written HTML/CSS/JS)
+  layoutMode String @default("builtin") // builtin | code
+  customHtml String?
+  customCss  String?
+  customJs   String?
 
   // homepage sections: ordered JSON array of
   // {type: "featured_products"|"featured_collections"|"testimonials"|"faq"|"rich_text", ...config}
