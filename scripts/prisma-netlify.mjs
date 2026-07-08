@@ -58,23 +58,25 @@ function setupPrismaEnv() {
 
 function run(cmd, args) {
   return new Promise((resolve, reject) => {
-    const child = spawn(cmd, args, {
-      stdio: "inherit",
-      shell: true,
-      env: process.env,
-    });
+    const opts = { stdio: "inherit", env: process.env };
+    if (process.platform === "win32" && (cmd.endsWith(".cmd") || cmd.endsWith(".bat"))) {
+      opts.shell = true;
+    }
+    const child = spawn(cmd, args, opts);
     child.on("close", (code) => (code === 0 ? resolve() : reject(new Error(`${cmd} exited ${code}`))));
   });
 }
 
+const prismaBin = path.join(process.cwd(), "node_modules", ".bin", process.platform === "win32" ? "prisma.cmd" : "prisma");
+
 await loadEnvFile();
 const canMigrate = setupPrismaEnv();
 
-await run("npx", ["prisma", "generate"]);
+await run(prismaBin, ["generate"]);
 
 if (canMigrate) {
   try {
-    await run("npx", ["prisma", "migrate", "deploy"]);
+    await run(prismaBin, ["migrate", "deploy"]);
     console.log("Prisma ready (migrations applied).");
   } catch (err) {
     console.warn("⚠️  prisma migrate deploy failed (continuing if DB already migrated):", err.message);
