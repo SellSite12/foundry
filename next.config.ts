@@ -18,7 +18,12 @@ const csp = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
-  serverExternalPackages: ["@prisma/client", "prisma"],
+  serverExternalPackages: [
+    "@prisma/client",
+    "prisma",
+    "ws",
+    "@neondatabase/serverless",
+  ],
   typescript: {
     ignoreBuildErrors: process.env.NETLIFY === "true",
   },

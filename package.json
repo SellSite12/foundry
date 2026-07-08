@@ -43,6 +43,7 @@
     "prisma": "^6.19.3",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-is": "^19.2.7",
     "recharts": "^3.9.2",
     "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3",
