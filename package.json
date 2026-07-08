@@ -18,6 +18,7 @@
     "export:netlify-env": "node scripts/export-netlify-env.mjs",
     "launch:netlify": "node scripts/complete-launch.mjs",
     "deploy:netlify": "node scripts/deploy-netlify-zip.mjs",
+    "push:github": "node scripts/github-push.mjs",
     "test:neon": "node scripts/test-neon.mjs",
     "build:netlify": "node scripts/prisma-netlify.mjs && next build",
     "cron": "node scripts/cron-runner.mjs",
