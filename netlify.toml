@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build:netlify"
+  command = "npm ci --include=optional && npm run build:netlify"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

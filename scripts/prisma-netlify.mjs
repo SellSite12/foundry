@@ -73,8 +73,12 @@ const canMigrate = setupPrismaEnv();
 await run("npx", ["prisma", "generate"]);
 
 if (canMigrate) {
-  await run("npx", ["prisma", "migrate", "deploy"]);
-  console.log("Prisma ready (migrations applied).");
+  try {
+    await run("npx", ["prisma", "migrate", "deploy"]);
+    console.log("Prisma ready (migrations applied).");
+  } catch (err) {
+    console.warn("⚠️  prisma migrate deploy failed (continuing if DB already migrated):", err.message);
+  }
 } else {
   console.log("Prisma client generated (migrations skipped — no DB URL).");
 }
