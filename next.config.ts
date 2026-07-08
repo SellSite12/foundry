@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
     "prisma",
     "ws",
     "@neondatabase/serverless",
+    "@prisma/adapter-neon",
   ],
   typescript: {
     ignoreBuildErrors: process.env.NETLIFY === "true",
