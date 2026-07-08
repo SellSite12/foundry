@@ -1,5 +1,8 @@
 [build]
-  command = "echo github-app-link-ok"
+  command = "npm exec -- prisma generate && npm exec -- next build"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [build.environment]
   NODE_VERSION = "20"
