@@ -1,8 +1,5 @@
 [build]
-  command = "echo netlify-toml-ok && exit 0"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+  command = "echo github-app-link-ok"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -11,11 +8,3 @@
   APP_VERSION = "1.0.0"
   NPM_CONFIG_PRODUCTION = "false"
   NPM_FLAGS = "--include=optional"
-  # NODE_ENV=production is in Netlify runtime env — not build env, or npm skips devDependencies
-
-# Database — one of:
-#   DATABASE_URL (manual Neon connection string), OR
-#   Neon extension auto-injects NETLIFY_DATABASE_URL at build + runtime
-# DIRECT_URL is optional (derived automatically during build)
-#   APP_URL, INTERNAL_SECRET, CRON_SECRET, INTEGRATION_ENCRYPTION_KEY, METRICS_SECRET
-#   RESEND_API_KEY or SMTP_HOST/SMTP_USER/SMTP_PASSWORD, EMAIL_FROM
