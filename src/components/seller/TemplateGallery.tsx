@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Check, Crown, LayoutTemplate, Plus, Sparkles } from "lucide-react";
+import { Check, Crown, Eye, LayoutTemplate, Plus, Sparkles, X } from "lucide-react";
 
 import { api } from "@/lib/client/api";
 import { formatMoney } from "@/lib/money";
@@ -32,6 +32,7 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
   const [saveOpen, setSaveOpen] = useState(false);
   const [saveName, setSaveName] = useState("");
   const [filter, setFilter] = useState<"all" | "FREE" | "PAID" | "CUSTOM">("all");
+  const [preview, setPreview] = useState<Template | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -101,7 +102,7 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
             Storefront templates
           </div>
           <p className="mt-1 text-[13px] text-ink-dim">
-            Start from a free design, upgrade to premium, or save your own custom template.
+            Preview any template with your real products before you apply or purchase.
           </p>
         </div>
         <Button variant="secondary" onClick={() => setSaveOpen(true)}>
@@ -163,7 +164,7 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
                 {t.industry ? (
                   <p className="mt-1 text-[11px] text-ink-faint">{t.industry}</p>
                 ) : null}
-                <div className="mt-3 flex items-center justify-between gap-2">
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                   {t.tier === "PAID" && !t.purchased ? (
                     <span className="text-[12px] font-medium text-copper">
                       {formatMoney(t.priceCents, "USD")}
@@ -175,13 +176,22 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
                   ) : (
                     <span className="text-[11px] text-ink-faint">Free</span>
                   )}
-                  <Button
-                    className="!px-3 !py-1.5 text-[12px]"
-                    loading={busy === t.id}
-                    onClick={() => applyTemplate(t)}
-                  >
-                    {t.tier === "PAID" && !t.purchased ? "Get & apply" : "Apply"}
-                  </Button>
+                  <div className="flex gap-1.5">
+                    <Button
+                      className="!px-3 !py-1.5 text-[12px]"
+                      variant="secondary"
+                      onClick={() => setPreview(t)}
+                    >
+                      <Eye size={13} /> Preview
+                    </Button>
+                    <Button
+                      className="!px-3 !py-1.5 text-[12px]"
+                      loading={busy === t.id}
+                      onClick={() => applyTemplate(t)}
+                    >
+                      {t.tier === "PAID" && !t.purchased ? "Get & apply" : "Apply"}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -208,6 +218,50 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
           </Button>
         </div>
       </Modal>
+
+      {preview ? (
+        <div className="fixed inset-0 z-[110] flex flex-col bg-base">
+          <div className="flex shrink-0 items-center justify-between gap-3 border-b border-line bg-surface px-4 py-3">
+            <div>
+              <p className="text-[14px] font-semibold text-ink">{preview.name}</p>
+              <p className="text-[12px] text-ink-faint">
+                Live preview with your store name, logo, and products — nothing is changed until you apply.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              {preview.tier === "PAID" && !preview.purchased ? (
+                <span className="text-[12px] font-medium text-copper">
+                  {formatMoney(preview.priceCents, "USD")}
+                </span>
+              ) : null}
+              <Button
+                className="!px-3 !py-1.5 text-[12px]"
+                loading={busy === preview.id}
+                onClick={() => {
+                  const t = preview;
+                  setPreview(null);
+                  applyTemplate(t);
+                }}
+              >
+                {preview.tier === "PAID" && !preview.purchased ? "Get & apply" : "Apply template"}
+              </Button>
+              <button
+                type="button"
+                onClick={() => setPreview(null)}
+                className="rounded-full p-2 text-ink-dim hover:bg-hover hover:text-ink"
+                aria-label="Close preview"
+              >
+                <X size={18} />
+              </button>
+            </div>
+          </div>
+          <iframe
+            title={`Preview ${preview.name}`}
+            src={`/preview/store/${storeId}/${preview.id}?embed=1`}
+            className="min-h-0 flex-1 border-0 bg-base2"
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
