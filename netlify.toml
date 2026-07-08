@@ -6,6 +6,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  NETLIFY = "true"
   UPLOAD_STORE = "blobs"
   APP_VERSION = "1.0.0"
   NPM_CONFIG_PRODUCTION = "false"

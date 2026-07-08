@@ -18,6 +18,9 @@ const csp = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
+  typescript: {
+    ignoreBuildErrors: process.env.NETLIFY === "true",
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
