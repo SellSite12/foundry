@@ -20,7 +20,7 @@
     "deploy:netlify": "node scripts/deploy-netlify-zip.mjs",
     "push:github": "node scripts/github-push.mjs",
     "test:neon": "node scripts/test-neon.mjs",
-    "build:netlify": "npx prisma generate && next build",
+    "build:netlify": "next build",
     "cron": "node scripts/cron-runner.mjs",
     "backup": "node scripts/backup.mjs",
     "db:generate": "prisma generate",
