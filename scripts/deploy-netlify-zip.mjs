@@ -1,14 +1,16 @@
 /* eslint-disable no-console */
-// Zip source and deploy to Netlify (cloud Linux build).
+// Trigger a production Netlify build from the linked Git repo (runs netlify-build.mjs on Netlify).
 // Usage: node scripts/deploy-netlify-zip.mjs
+//
+// Note: POST /deploys with a zip uploads static files only — it does NOT run the build command.
+// Always use the builds API so @netlify/plugin-nextjs can compile Next.js.
 
-import { readFile, stat, rm } from "fs/promises";
-import { spawn } from "child_process";
+import { readFile } from "fs/promises";
 import path from "path";
 import os from "os";
 
 const SITE_ID = "364782a9-b1d0-4ba6-ad85-f2bfcd86575d";
-const PS1 = path.join(process.cwd(), "scripts", "create-deploy-zip.ps1");
+const BUILD_CMD = "node scripts/netlify-build.mjs";
 
 async function getNetlifyToken() {
   const configPath = path.join(os.homedir(), "AppData", "Roaming", "netlify", "Config", "config.json");
@@ -20,45 +22,34 @@ async function getNetlifyToken() {
   return token;
 }
 
-function run(cmd, args) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(cmd, args, { stdio: ["ignore", "pipe", "inherit"] });
-    let out = "";
-    child.stdout?.on("data", (d) => { out += d.toString(); });
-    child.on("close", (code) => {
-      if (code === 0) resolve(out.trim());
-      else reject(new Error(`${cmd} failed (${code})`));
-    });
-  });
-}
-
-console.log("\n=== Netlify zip deploy (cloud build) ===\n");
-
-console.log("Creating zip...");
-const zipPath = await run("powershell", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", PS1]);
-const { size } = await stat(zipPath);
-console.log(`Zip ready: ${(size / 1024 / 1024).toFixed(1)} MB (${zipPath})`);
+console.log("\n=== Netlify production build (from Git) ===\n");
 
 const token = await getNetlifyToken();
-const zipBytes = await readFile(zipPath);
-const res = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/deploys`, {
-  method: "POST",
-  headers: {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/zip",
-  },
-  body: zipBytes,
+const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
+
+const patch = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}`, {
+  method: "PATCH",
+  headers,
+  body: JSON.stringify({ build_settings: { cmd: BUILD_CMD, dir: "" } }),
 });
+if (!patch.ok) {
+  console.warn("Could not update build command:", patch.status);
+} else {
+  console.log("Build command:", BUILD_CMD);
+}
 
-const json = await res.json().catch(() => ({}));
-await rm(zipPath, { force: true }).catch(() => {});
+const build = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/builds`, {
+  method: "POST",
+  headers,
+  body: JSON.stringify({ clear_cache: true }),
+}).then((r) => r.json());
 
-if (!res.ok) {
-  console.error("Deploy failed:", res.status, JSON.stringify(json, null, 2));
+if (!build.deploy_id) {
+  console.error("Build trigger failed:", JSON.stringify(build, null, 2));
   process.exit(1);
 }
 
-console.log("\nDeploy uploaded to Netlify.");
-console.log(`Deploy ID: ${json.id}`);
-console.log(`Admin: https://app.netlify.com/sites/hilarious-platypus-d57cfb/deploys/${json.id}`);
-console.log(`Poll: node scripts/wait-netlify-deploy.mjs ${json.id}\n`);
+console.log("\nBuild triggered on Netlify.");
+console.log(`Deploy ID: ${build.deploy_id}`);
+console.log(`Admin: https://app.netlify.com/sites/hilarious-platypus-d57cfb/deploys/${build.deploy_id}`);
+console.log(`Poll: node scripts/wait-netlify-deploy.mjs ${build.deploy_id}\n`);
