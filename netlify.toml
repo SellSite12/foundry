@@ -1,5 +1,5 @@
 [build]
-  command = "npx prisma generate"
+  command = "npx prisma generate && npx next build"
 
 [build.environment]
   NODE_VERSION = "20"
