@@ -1,6 +1,9 @@
 [build]
   command = "node scripts/netlify-build.mjs"
 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 [build.environment]
   NODE_VERSION = "20"
   NETLIFY = "true"
@@ -11,4 +14,8 @@
   NODE_OPTIONS = "--max-old-space-size=4096"
 
 [functions]
-  included_files = ["node_modules/.prisma/**", "node_modules/@prisma/client/**"]
+  included_files = [
+    "node_modules/.prisma/**",
+    "node_modules/@prisma/client/**",
+    "node_modules/@prisma/engines/**",
+  ]
