@@ -79,6 +79,7 @@ if (!owner) {
 
 const remote = `https://github.com/${owner}/${name}.git`;
 await run("git", ["remote", "remove", "origin"]).catch(() => {});
-await run("git", ["remote", "add", "origin", remote]);
+// Use token embedded in URL to avoid interactive credential prompts
+await run("git", ["remote", "add", "origin", `https://x-access-token:${token}@github.com/${owner}/${name}.git`]);
 await run("git", ["push", "-u", "origin", "master"]);
-console.log(`Pushed to ${remote}`);
+console.log(`Pushed to https://github.com/${owner}/${name}.git`);

@@ -1,5 +1,5 @@
 [build]
-  command = "node scripts/netlify-build-check.mjs"
+  command = "npm run build:netlify"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
