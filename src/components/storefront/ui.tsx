@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { formatMoney } from "@/lib/money";
+import { ProductCardLink } from "@/components/storefront/ProductCardLink";
 
 /** Price with optional compare-at strikethrough. */
 export function Price({
@@ -67,9 +68,9 @@ export type ProductCardData = {
 /** Product card used across storefront + marketplace grids. */
 export function ProductCard({ product, showStore = false }: { product: ProductCardData; showStore?: boolean }) {
   return (
-    <Link
+    <ProductCardLink
       href={`/shop/${product.storeSlug}/products/${product.slug}`}
-      className="group block overflow-hidden border transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2"
+      className="sf-product-card group block overflow-hidden border transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2"
       style={{
         borderRadius: "var(--sf-radius)",
         borderColor: "var(--sf-card-border)",
@@ -118,7 +119,7 @@ export function ProductCard({ product, showStore = false }: { product: ProductCa
         <Stars average={product.rating.average} count={product.rating.count} showCount={product.rating.count > 0} />
         <Price priceCents={product.priceCents} compareAtCents={product.compareAtCents} currency={product.currency} size="sm" />
       </div>
-    </Link>
+    </ProductCardLink>
   );
 }
 

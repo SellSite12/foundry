@@ -224,6 +224,10 @@ model StoreTheme {
   bannerHeading       String?
   bannerSubheading    String?
 
+  // visual effects (premium templates)
+  heroStyle    String @default("classic") // classic | aurora | depth | spotlight | neon-grid | cinematic
+  motionPreset String @default("none") // none | subtle | cinematic | premium
+
   // homepage sections: ordered JSON array of
   // {type: "featured_products"|"featured_collections"|"testimonials"|"faq"|"rich_text", ...config}
   sectionsJson String?

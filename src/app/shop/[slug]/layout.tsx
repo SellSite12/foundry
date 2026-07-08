@@ -7,6 +7,8 @@ import { getActiveCart } from "@/lib/shop/cart";
 import { getCurrentUser } from "@/lib/auth/session";
 import { StorefrontHeader } from "@/components/storefront/StorefrontHeader";
 import { StorefrontFooter } from "@/components/storefront/StorefrontFooter";
+import { StorefrontAmbient } from "@/components/storefront/StorefrontAmbient";
+import "@/app/shop/storefront-effects.css";
 
 export async function generateMetadata({
   params,
@@ -52,7 +54,9 @@ export default async function StorefrontLayout({
 
   return (
     <div
-      className="flex min-h-screen flex-col"
+      className="relative flex min-h-screen flex-col"
+      data-sf-hero={theme.heroStyle ?? "classic"}
+      data-sf-motion={theme.motionPreset ?? "none"}
       style={{
         ...themeCssVars(theme),
         background: "var(--sf-bg)",
@@ -60,6 +64,12 @@ export default async function StorefrontLayout({
         fontFamily: "var(--sf-font)",
       }}
     >
+      <StorefrontAmbient
+        heroStyle={theme.heroStyle ?? "classic"}
+        motionPreset={theme.motionPreset ?? "none"}
+        primaryColor={theme.primaryColor}
+        accentColor={theme.accentColor}
+      />
       {theme.announcementEnabled && theme.announcementText ? (
         <p
           className="px-4 py-2 text-center text-[12.5px] font-medium"
@@ -80,7 +90,7 @@ export default async function StorefrontLayout({
         navLinks={navLinks}
       />
 
-      <main id="main" className="flex-1">{children}</main>
+      <main id="main" className="relative z-[1] flex-1">{children}</main>
 
       <StorefrontFooter
         slug={slug}

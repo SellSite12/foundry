@@ -7,6 +7,8 @@ import {
   FOOTER_STYLES,
   CARD_STYLES,
   BUTTON_STYLES,
+  HERO_STYLES,
+  MOTION_PRESETS,
   STORE_PAGE_SLUGS,
   SHIPPING_KINDS,
   QUESTION_STATUSES,
@@ -186,6 +188,8 @@ export const updateThemeSchema = z.object({
   bannerUrl: z.string().trim().max(2048).nullable().optional(),
   bannerHeading: shortText.nullable().optional(),
   bannerSubheading: shortText.nullable().optional(),
+  heroStyle: z.enum(HERO_STYLES).optional(),
+  motionPreset: z.enum(MOTION_PRESETS).optional(),
   sections: z.array(sectionSchema).max(12).optional(),
   testimonials: z
     .array(

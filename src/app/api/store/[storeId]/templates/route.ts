@@ -39,18 +39,31 @@ export const GET = withErrorHandling(async (_req, { params }) => {
   const purchasedIds = new Set(purchases.map((p) => p.templateId));
 
   return ok({
-    templates: [...platform, ...custom].map((t) => ({
-      id: t.id,
-      name: t.name,
-      slug: t.slug,
-      description: t.description,
-      tier: t.tier,
-      priceCents: t.priceCents,
-      industry: t.industry,
-      previewColor: t.previewColor,
-      isCustom: Boolean(t.storeId),
-      purchased: t.tier !== "PAID" || purchasedIds.has(t.id) || Boolean(t.storeId),
-    })),
+    templates: [...platform, ...custom].map((t) => {
+      let heroStyle = "classic";
+      let motionPreset = "none";
+      try {
+        const snap = JSON.parse(t.snapshotJson) as { heroStyle?: string; motionPreset?: string };
+        heroStyle = snap.heroStyle ?? "classic";
+        motionPreset = snap.motionPreset ?? "none";
+      } catch {
+        // ignore
+      }
+      return {
+        id: t.id,
+        name: t.name,
+        slug: t.slug,
+        description: t.description,
+        tier: t.tier,
+        priceCents: t.priceCents,
+        industry: t.industry,
+        previewColor: t.previewColor,
+        isCustom: Boolean(t.storeId),
+        purchased: t.tier !== "PAID" || purchasedIds.has(t.id) || Boolean(t.storeId),
+        heroStyle,
+        motionPreset,
+      };
+    }),
   });
 });
 

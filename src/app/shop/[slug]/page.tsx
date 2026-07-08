@@ -17,6 +17,7 @@ import {
   type ThemeSection,
 } from "@/lib/shop/theme";
 import { ProductCard, SectionHeading, EmptyNote, Stars } from "@/components/storefront/ui";
+import { StorefrontHero } from "@/components/storefront/StorefrontHero";
 
 export default async function StorefrontHome({
   params,
@@ -33,61 +34,16 @@ export default async function StorefrontHome({
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6">
-      {/* Hero banner */}
-      {theme.bannerHeading || theme.bannerUrl ? (
-        <section
-          aria-label="Store banner"
-          className="relative mt-6 overflow-hidden"
-          style={{ borderRadius: "var(--sf-radius)" }}
-        >
-          {theme.bannerUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={theme.bannerUrl} alt="" className="absolute inset-0 h-full w-full object-cover" />
-          ) : null}
-          <div
-            className="relative flex min-h-[280px] flex-col items-start justify-center gap-3 p-8 sm:min-h-[360px] sm:p-14"
-            style={{
-              background: theme.bannerUrl
-                ? "linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 70%)"
-                : `linear-gradient(120deg, var(--sf-primary), var(--sf-accent))`,
-            }}
-          >
-            <h1 className="max-w-xl text-3xl font-bold tracking-tight text-white sm:text-5xl">
-              {theme.bannerHeading ?? store.name}
-            </h1>
-            {theme.bannerSubheading ? (
-              <p className="max-w-lg text-[15px] leading-relaxed text-white/85">{theme.bannerSubheading}</p>
-            ) : null}
-            <Link
-              href={`/shop/${slug}/products`}
-              className="mt-2 inline-flex items-center px-6 py-3 text-[14px] font-semibold text-white transition-transform hover:scale-[1.02]"
-              style={{ background: "var(--sf-primary)", borderRadius: "var(--sf-btn-radius)" }}
-            >
-              Shop all products
-            </Link>
-          </div>
-        </section>
-      ) : (
-        <section className="mt-10 flex flex-col items-center gap-3 py-10 text-center">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl" style={{ color: "var(--sf-text)" }}>
-            {store.name}
-          </h1>
-          {store.description ? (
-            <p className="max-w-xl text-[15px] leading-relaxed" style={{ color: "var(--sf-text-dim)" }}>
-              {store.description}
-            </p>
-          ) : null}
-          <Link
-            href={`/shop/${slug}/products`}
-            className="mt-3 inline-flex items-center px-6 py-3 text-[14px] font-semibold text-white"
-            style={{ background: "var(--sf-primary)", borderRadius: "var(--sf-btn-radius)" }}
-          >
-            Shop all products
-          </Link>
-        </section>
-      )}
+      <StorefrontHero
+        slug={slug}
+        storeName={store.name}
+        heroStyle={theme.heroStyle ?? "classic"}
+        motionPreset={theme.motionPreset ?? "none"}
+        bannerUrl={theme.bannerUrl}
+        bannerHeading={theme.bannerHeading}
+        bannerSubheading={theme.bannerSubheading}
+      />
 
-      {/* Configurable homepage sections */}
       {await Promise.all(sections.map((s, i) => renderSection(s, i, store.id, slug, theme)))}
     </div>
   );
@@ -111,7 +67,7 @@ async function renderSection(
         select: PUBLIC_PRODUCT_CARD_SELECT,
       });
       return (
-        <section key={key} className="mt-14" aria-label={section.title ?? "Featured products"}>
+        <section key={key} className="sf-section mt-14" aria-label={section.title ?? "Featured products"}>
           <SectionHeading
             title={section.title ?? "Featured products"}
             action={
@@ -123,7 +79,7 @@ async function renderSection(
           {products.length === 0 ? (
             <EmptyNote>No products published yet — check back soon.</EmptyNote>
           ) : (
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="sf-product-grid grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {products.map((p) => (
                 <ProductCard
                   key={p.id}
@@ -153,7 +109,7 @@ async function renderSection(
       });
       if (collections.length === 0) return null;
       return (
-        <section key={key} className="mt-14" aria-label={section.title ?? "Collections"}>
+        <section key={key} className="sf-section mt-14" aria-label={section.title ?? "Collections"}>
           <SectionHeading title={section.title ?? "Shop by collection"} />
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
             {collections.map((c) => (
@@ -184,7 +140,7 @@ async function renderSection(
       const testimonials = parseTestimonials(theme);
       if (testimonials.length === 0) return null;
       return (
-        <section key={key} className="mt-14" aria-label={section.title ?? "Testimonials"}>
+        <section key={key} className="sf-section mt-14" aria-label={section.title ?? "Testimonials"}>
           <SectionHeading title={section.title ?? "What customers say"} />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((t, i) => (
@@ -210,7 +166,7 @@ async function renderSection(
       const faq = parseFaq(theme);
       if (faq.length === 0) return null;
       return (
-        <section key={key} className="mt-14" aria-label={section.title ?? "FAQ"}>
+        <section key={key} className="sf-section mt-14" aria-label={section.title ?? "FAQ"}>
           <SectionHeading title={section.title ?? "Frequently asked questions"} />
           <div className="space-y-3">
             {faq.slice(0, 6).map((f, i) => (
@@ -234,7 +190,7 @@ async function renderSection(
     case "rich_text": {
       if (!section.title && !section.body) return null;
       return (
-        <section key={key} className="mt-14 text-center" aria-label={section.title ?? "About"}>
+        <section key={key} className="sf-section mt-14 text-center" aria-label={section.title ?? "About"}>
           {section.title ? (
             <h2 className="text-xl font-semibold tracking-tight" style={{ color: "var(--sf-text)" }}>
               {section.title}

@@ -20,6 +20,8 @@ export function snapshotToPreviewTheme(snapshot: ThemeSnapshot, storeId: string)
     bannerUrl: snapshot.bannerUrl ?? null,
     bannerHeading: snapshot.bannerHeading ?? null,
     bannerSubheading: snapshot.bannerSubheading ?? null,
+    heroStyle: snapshot.heroStyle ?? "classic",
+    motionPreset: snapshot.motionPreset ?? "none",
     sectionsJson: JSON.stringify(snapshot.sections ?? []),
     testimonialsJson: JSON.stringify(snapshot.testimonials ?? []),
     faqJson: JSON.stringify(snapshot.faq ?? []),

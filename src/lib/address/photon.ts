@@ -23,6 +23,7 @@ export function parsePhotonFeatures(features: PhotonFeature[]): AddressSuggestio
   return features
     .map((feature, index) => toSuggestion(feature, index))
     .filter((s): s is AddressSuggestion => {
+      if (!s) return false;
       if (!s.line1 && !s.city) return false;
       const key = `${s.line1}|${s.city}|${s.postalCode}`;
       if (seen.has(key)) return false;

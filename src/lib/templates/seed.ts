@@ -53,6 +53,7 @@ const FREE_STOREFRONT: Array<{
       footerStyle: "slim",
       cardStyle: "borderless",
       buttonStyle: "pill",
+      motionPreset: "subtle",
       bannerHeading: "Simple. Beautiful. Yours.",
       bannerSubheading: "Curated essentials for everyday life.",
       sections: DEFAULT_SECTIONS,
@@ -91,6 +92,8 @@ const FREE_STOREFRONT: Array<{
       footerStyle: "slim",
       cardStyle: "rounded",
       buttonStyle: "rounded",
+      heroStyle: "aurora",
+      motionPreset: "subtle",
       bannerHeading: "Ship faster",
       bannerSubheading: "Tools built for builders.",
       sections: [
@@ -145,7 +148,7 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
   {
     name: "Luxury Noir",
     slug: "luxury-noir",
-    description: "High-contrast dark luxury with gold accents and dramatic hero.",
+    description: "Rotating gold spotlight, 3D depth, and glowing product cards — haute couture energy.",
     previewColor: "#C9A227",
     snapshot: {
       primaryColor: "#C9A227",
@@ -156,22 +159,28 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
       footerStyle: "slim",
       cardStyle: "borderless",
       buttonStyle: "pill",
+      heroStyle: "spotlight",
+      motionPreset: "premium",
       announcementEnabled: true,
       announcementText: "Complimentary shipping on orders over $150",
       bannerHeading: "The collection",
-      bannerSubheading: "Limited editions, timeless design.",
+      bannerSubheading: "Limited editions. Timeless design. Crafted for those who notice the details.",
       sections: [
         { type: "featured_products", title: "Signature pieces", limit: 4 },
         { type: "testimonials", title: "From our clients" },
-        { type: "rich_text", title: "Our story", body: "Every piece is crafted to last generations." },
+        { type: "rich_text", title: "Our atelier", body: "Every piece is sculpted, finished, and inspected by hand — heirlooms from the first wear." },
+      ],
+      testimonials: [
+        { author: "Elena R.", quote: "The packaging alone felt like opening a jewel box.", rating: 5 },
+        { author: "Marcus T.", quote: "Understated luxury. Exactly what my brand needed.", rating: 5 },
       ],
     },
   },
   {
     name: "Editorial Magazine",
     slug: "editorial-magazine",
-    description: "Magazine-style layout with bold typography and featured collections.",
-    previewColor: "#1A1A1A",
+    description: "Cinematic widescreen hero, film grain, and staggered section reveals — like a fashion spread.",
+    previewColor: "#E63946",
     snapshot: {
       primaryColor: "#1A1A1A",
       accentColor: "#E63946",
@@ -181,19 +190,25 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
       footerStyle: "full",
       cardStyle: "square",
       buttonStyle: "square",
-      bannerHeading: "New season",
-      bannerSubheading: "Discover the latest arrivals.",
+      heroStyle: "cinematic",
+      motionPreset: "cinematic",
+      bannerHeading: "The new season",
+      bannerSubheading: "Bold silhouettes. Editorial layouts. Your story, told beautifully.",
       sections: [
         { type: "featured_collections", title: "Collections", limit: 6 },
         { type: "featured_products", title: "Editor's picks", limit: 8 },
         { type: "testimonials", title: "Press & praise" },
+        { type: "rich_text", title: "Behind the lens", body: "Designed for brands that treat every product drop like a cover story." },
+      ],
+      testimonials: [
+        { author: "Vogue Daily", quote: "A storefront that feels like flipping through a lookbook.", rating: 5 },
       ],
     },
   },
   {
     name: "Neon Pop",
     slug: "neon-pop",
-    description: "Vibrant neon accents on deep black — perfect for streetwear & music.",
+    description: "3D neon grid floor, shimmer headlines, and cyberpunk glow — built for drops and streetwear.",
     previewColor: "#00FF88",
     snapshot: {
       primaryColor: "#00FF88",
@@ -204,13 +219,75 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
       footerStyle: "slim",
       cardStyle: "rounded",
       buttonStyle: "pill",
+      heroStyle: "neon-grid",
+      motionPreset: "premium",
       announcementEnabled: true,
-      announcementText: "Drop live — limited stock",
-      bannerHeading: "New drop",
-      bannerSubheading: "Exclusive releases every Friday.",
+      announcementText: "⚡ Drop live — limited stock",
+      bannerHeading: "NEW DROP",
+      bannerSubheading: "Exclusive releases every Friday. Once they're gone, they're gone.",
       sections: [
         { type: "featured_products", title: "Latest drop", limit: 12 },
         { type: "faq", title: "Drop FAQ" },
+      ],
+      faq: [
+        { question: "When do drops go live?", answer: "Every Friday at 12pm EST. Turn on notifications so you never miss one." },
+        { question: "Do you restock?", answer: "Rarely — most pieces are one-and-done limited runs." },
+      ],
+    },
+  },
+  {
+    name: "Aurora Drift",
+    slug: "aurora-drift",
+    description: "Floating aurora blobs in 3D space with parallax depth — mesmerizing and premium.",
+    previewColor: "#7C3AED",
+    snapshot: {
+      primaryColor: "#7C3AED",
+      accentColor: "#06B6D4",
+      mode: "dark",
+      font: "sans",
+      headerStyle: "centered",
+      footerStyle: "full",
+      cardStyle: "rounded",
+      buttonStyle: "pill",
+      heroStyle: "aurora",
+      motionPreset: "premium",
+      bannerHeading: "Drift into color",
+      bannerSubheading: "An immersive shopping experience with living gradients and soft 3D motion.",
+      sections: [
+        { type: "featured_products", title: "Curated for you", limit: 8 },
+        { type: "testimonials", title: "Loved by creators" },
+        { type: "faq", title: "Questions" },
+      ],
+      testimonials: [
+        { author: "Sasha K.", quote: "Customers literally said wow when they opened our store.", rating: 5 },
+        { author: "Devon P.", quote: "The animations are smooth without being distracting.", rating: 5 },
+      ],
+    },
+  },
+  {
+    name: "Obsidian Depth",
+    slug: "obsidian-depth",
+    description: "Layered 3D parallax hero with floating elements and dramatic product tilt on hover.",
+    previewColor: "#6366F1",
+    snapshot: {
+      primaryColor: "#6366F1",
+      accentColor: "#EC4899",
+      mode: "dark",
+      font: "sans",
+      headerStyle: "minimal",
+      footerStyle: "slim",
+      cardStyle: "borderless",
+      buttonStyle: "rounded",
+      heroStyle: "depth",
+      motionPreset: "premium",
+      announcementEnabled: true,
+      announcementText: "Free express shipping this week",
+      bannerHeading: "Built in layers",
+      bannerSubheading: "Depth, dimension, and motion — a storefront that feels alive.",
+      sections: [
+        { type: "featured_products", title: "Highlights", limit: 6 },
+        { type: "featured_collections", title: "Explore", limit: 4 },
+        { type: "rich_text", title: "Why depth matters", body: "Premium brands don't look flat. This template gives your products room to breathe in 3D space." },
       ],
     },
   },
@@ -220,6 +297,8 @@ const PAID_PRICES: Record<string, number> = {
   "luxury-noir": 2900,
   "editorial-magazine": 3900,
   "neon-pop": 4900,
+  "aurora-drift": 5900,
+  "obsidian-depth": 6900,
 };
 
 type EmailSeed = {
@@ -241,7 +320,7 @@ function emailContent(title: string, paragraphs: string[], cta?: { label: string
     cta ? button(cta.href, cta.label) : "",
   ].join("");
   const text = paragraphs.map((p) => p.replace(/<[^>]+>/g, "")).join("\n\n");
-  return { html, text, subject: title };
+  return { html, text };
 }
 
 const EMAIL_TEMPLATES: EmailSeed[] = [

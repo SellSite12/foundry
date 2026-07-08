@@ -18,6 +18,8 @@ export type ThemeSnapshot = {
   bannerUrl?: string | null;
   bannerHeading?: string | null;
   bannerSubheading?: string | null;
+  heroStyle?: string;
+  motionPreset?: string;
   sections?: ThemeSection[];
   testimonials?: Testimonial[];
   faq?: FaqEntry[];
@@ -38,6 +40,8 @@ export function themeToSnapshot(theme: StoreTheme, sections: ThemeSection[], tes
     bannerUrl: theme.bannerUrl,
     bannerHeading: theme.bannerHeading,
     bannerSubheading: theme.bannerSubheading,
+    heroStyle: theme.heroStyle,
+    motionPreset: theme.motionPreset,
     sections,
     testimonials,
     faq,
@@ -62,6 +66,8 @@ export async function applyThemeSnapshot(storeId: string, snapshot: ThemeSnapsho
       bannerUrl: snapshot.bannerUrl ?? null,
       bannerHeading: snapshot.bannerHeading ?? null,
       bannerSubheading: snapshot.bannerSubheading ?? null,
+      heroStyle: snapshot.heroStyle ?? "classic",
+      motionPreset: snapshot.motionPreset ?? "none",
       sectionsJson: JSON.stringify(snapshot.sections ?? DEFAULT_SECTIONS),
       testimonialsJson: JSON.stringify(snapshot.testimonials ?? []),
       faqJson: JSON.stringify(snapshot.faq ?? []),
@@ -80,6 +86,8 @@ export async function applyThemeSnapshot(storeId: string, snapshot: ThemeSnapsho
       bannerUrl: snapshot.bannerUrl ?? null,
       bannerHeading: snapshot.bannerHeading ?? null,
       bannerSubheading: snapshot.bannerSubheading ?? null,
+      heroStyle: snapshot.heroStyle ?? "classic",
+      motionPreset: snapshot.motionPreset ?? "none",
       sectionsJson: JSON.stringify(snapshot.sections ?? DEFAULT_SECTIONS),
       testimonialsJson: JSON.stringify(snapshot.testimonials ?? []),
       faqJson: JSON.stringify(snapshot.faq ?? []),

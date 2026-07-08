@@ -5,6 +5,7 @@ import { getStoreAccess } from "@/lib/seller/access";
 import { getOrCreateTheme, parseTestimonials, parseFaq } from "@/lib/shop/theme";
 import { PageHeader, Panel } from "@/components/seller/ui";
 import { TemplateGallery } from "@/components/seller/TemplateGallery";
+import "@/app/shop/storefront-effects.css";
 import { ThemeCustomizer } from "@/components/seller/ThemeCustomizer";
 import { StorePagesEditor } from "@/components/seller/StorePagesEditor";
 import { CustomDomainForm } from "@/components/seller/CustomDomainForm";

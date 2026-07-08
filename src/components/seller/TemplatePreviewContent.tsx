@@ -10,7 +10,10 @@ import {
 import { ratingSummary } from "@/lib/shop/storefront";
 import { StorefrontHeader } from "@/components/storefront/StorefrontHeader";
 import { StorefrontFooter } from "@/components/storefront/StorefrontFooter";
+import { StorefrontHero } from "@/components/storefront/StorefrontHero";
+import { StorefrontAmbient } from "@/components/storefront/StorefrontAmbient";
 import { ProductCard, SectionHeading, EmptyNote, Stars } from "@/components/storefront/ui";
+import "@/app/shop/storefront-effects.css";
 
 type ProductCard = {
   id: string;
@@ -66,7 +69,9 @@ export function TemplatePreviewContent({
 
   return (
     <div
-      className="flex min-h-full flex-col"
+      className="relative flex min-h-full flex-col"
+      data-sf-hero={theme.heroStyle ?? "classic"}
+      data-sf-motion={theme.motionPreset ?? "none"}
       style={{
         ...themeCssVars(theme),
         background: "var(--sf-bg)",
@@ -74,6 +79,12 @@ export function TemplatePreviewContent({
         fontFamily: "var(--sf-font)",
       }}
     >
+      <StorefrontAmbient
+        heroStyle={theme.heroStyle ?? "classic"}
+        motionPreset={theme.motionPreset ?? "none"}
+        primaryColor={theme.primaryColor}
+        accentColor={theme.accentColor}
+      />
       {theme.announcementEnabled && theme.announcementText ? (
         <p
           className="px-4 py-2 text-center text-[12.5px] font-medium"
@@ -93,51 +104,17 @@ export function TemplatePreviewContent({
         navLinks={navLinks}
       />
 
-      <main className="flex-1">
+      <main className="relative z-[1] flex-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          {theme.bannerHeading || theme.bannerUrl ? (
-            <section
-              className="relative mt-6 overflow-hidden"
-              style={{ borderRadius: "var(--sf-radius)" }}
-            >
-              {theme.bannerUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={theme.bannerUrl} alt="" className="absolute inset-0 h-full w-full object-cover" />
-              ) : null}
-              <div
-                className="relative flex min-h-[240px] flex-col items-start justify-center gap-3 p-8 sm:min-h-[300px]"
-                style={{
-                  background: theme.bannerUrl
-                    ? "linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 70%)"
-                    : `linear-gradient(120deg, var(--sf-primary), var(--sf-accent))`,
-                }}
-              >
-                <h1 className="max-w-xl text-2xl font-bold tracking-tight text-white sm:text-4xl">
-                  {theme.bannerHeading ?? store.name}
-                </h1>
-                {theme.bannerSubheading ? (
-                  <p className="max-w-lg text-[14px] leading-relaxed text-white/85">{theme.bannerSubheading}</p>
-                ) : null}
-                <span
-                  className="mt-2 inline-flex items-center px-5 py-2.5 text-[13px] font-semibold text-white"
-                  style={{ background: "var(--sf-primary)", borderRadius: "var(--sf-btn-radius)" }}
-                >
-                  Shop all products
-                </span>
-              </div>
-            </section>
-          ) : (
-            <section className="mt-8 flex flex-col items-center gap-2 py-8 text-center">
-              <h1 className="text-2xl font-bold tracking-tight sm:text-4xl" style={{ color: "var(--sf-text)" }}>
-                {store.name}
-              </h1>
-              {store.description ? (
-                <p className="max-w-xl text-[14px] leading-relaxed" style={{ color: "var(--sf-text-dim)" }}>
-                  {store.description}
-                </p>
-              ) : null}
-            </section>
-          )}
+          <StorefrontHero
+            slug={slug}
+            storeName={store.name}
+            heroStyle={theme.heroStyle ?? "classic"}
+            motionPreset={theme.motionPreset ?? "none"}
+            bannerUrl={theme.bannerUrl}
+            bannerHeading={theme.bannerHeading}
+            bannerSubheading={theme.bannerSubheading}
+          />
 
           {sections.map((section, i) =>
             renderPreviewSection(section, i, { slug, products, collections, testimonials, faq })
@@ -172,12 +149,12 @@ function renderPreviewSection(
     case "featured_products": {
       const items = ctx.products.slice(0, section.limit ?? 8);
       return (
-        <section key={key} className="mt-12" aria-label={section.title ?? "Featured products"}>
+        <section key={key} className="sf-section mt-12" aria-label={section.title ?? "Featured products"}>
           <SectionHeading title={section.title ?? "Featured products"} />
           {items.length === 0 ? (
             <EmptyNote>Your products will appear here once published.</EmptyNote>
           ) : (
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="sf-product-grid grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {items.map((p) => (
                 <ProductCard
                   key={p.id}
@@ -203,7 +180,7 @@ function renderPreviewSection(
       const items = ctx.collections.slice(0, section.limit ?? 4);
       if (items.length === 0) return null;
       return (
-        <section key={key} className="mt-12" aria-label={section.title ?? "Collections"}>
+        <section key={key} className="sf-section mt-12" aria-label={section.title ?? "Collections"}>
           <SectionHeading title={section.title ?? "Shop by collection"} />
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
             {items.map((c) => (
@@ -232,7 +209,7 @@ function renderPreviewSection(
     case "testimonials": {
       if (ctx.testimonials.length === 0) return null;
       return (
-        <section key={key} className="mt-12" aria-label={section.title ?? "Testimonials"}>
+        <section key={key} className="sf-section mt-12" aria-label={section.title ?? "Testimonials"}>
           <SectionHeading title={section.title ?? "What customers say"} />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {ctx.testimonials.map((t, i) => (
@@ -261,7 +238,7 @@ function renderPreviewSection(
     case "faq": {
       if (ctx.faq.length === 0) return null;
       return (
-        <section key={key} className="mt-12" aria-label={section.title ?? "FAQ"}>
+        <section key={key} className="sf-section mt-12" aria-label={section.title ?? "FAQ"}>
           <SectionHeading title={section.title ?? "Frequently asked questions"} />
           <div className="space-y-2">
             {ctx.faq.slice(0, 4).map((f, i) => (

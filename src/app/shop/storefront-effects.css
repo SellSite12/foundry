@@ -1,0 +1,314 @@
+/* Storefront motion & 3D effects — driven by data-sf-motion on the root layout */
+
+@keyframes sf-float {
+  0%,
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-12px) translateZ(20px);
+  }
+}
+
+@keyframes sf-aurora-1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(12%, -8%) scale(1.1) rotate(120deg);
+  }
+  66% {
+    transform: translate(-8%, 10%) scale(0.95) rotate(240deg);
+  }
+}
+
+@keyframes sf-aurora-2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-15%, 12%) scale(1.15);
+  }
+}
+
+@keyframes sf-spotlight-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sf-grid-scroll {
+  to {
+    background-position: 0 80px;
+  }
+}
+
+@keyframes sf-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes sf-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sf-pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+    filter: blur(40px);
+  }
+  50% {
+    opacity: 0.75;
+    filter: blur(56px);
+  }
+}
+
+@keyframes sf-card-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--sf-primary) 0%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 28px 2px color-mix(in srgb, var(--sf-primary) 35%, transparent);
+  }
+}
+
+/* Ambient background orbs */
+.sf-ambient {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.sf-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: sf-pulse-glow 8s ease-in-out infinite;
+}
+
+[data-sf-motion="subtle"] .sf-section,
+[data-sf-motion="cinematic"] .sf-section,
+[data-sf-motion="premium"] .sf-section {
+  animation: sf-fade-up 0.7s ease-out both;
+}
+
+[data-sf-motion="cinematic"] .sf-section:nth-child(2) {
+  animation-delay: 0.1s;
+}
+[data-sf-motion="cinematic"] .sf-section:nth-child(3) {
+  animation-delay: 0.2s;
+}
+[data-sf-motion="cinematic"] .sf-section:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+[data-sf-motion="premium"] .sf-product-card {
+  transform-style: preserve-3d;
+  transition:
+    transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.35s ease;
+  will-change: transform;
+}
+
+[data-sf-motion="premium"] .sf-product-card:hover {
+  transform: perspective(900px) rotateX(4deg) rotateY(-6deg) translateY(-10px) scale(1.03);
+  box-shadow:
+    0 28px 48px -16px color-mix(in srgb, var(--sf-primary) 45%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--sf-primary) 25%, transparent);
+}
+
+[data-sf-motion="premium"] .sf-product-grid > * {
+  animation: sf-fade-up 0.6s ease-out both;
+}
+
+[data-sf-motion="premium"] .sf-product-grid > *:nth-child(1) { animation-delay: 0.05s; }
+[data-sf-motion="premium"] .sf-product-grid > *:nth-child(2) { animation-delay: 0.1s; }
+[data-sf-motion="premium"] .sf-product-grid > *:nth-child(3) { animation-delay: 0.15s; }
+[data-sf-motion="premium"] .sf-product-grid > *:nth-child(4) { animation-delay: 0.2s; }
+[data-sf-motion="premium"] .sf-product-grid > *:nth-child(5) { animation-delay: 0.25s; }
+[data-sf-motion="premium"] .sf-product-grid > *:nth-child(6) { animation-delay: 0.3s; }
+[data-sf-motion="premium"] .sf-product-grid > *:nth-child(7) { animation-delay: 0.35s; }
+[data-sf-motion="premium"] .sf-product-grid > *:nth-child(8) { animation-delay: 0.4s; }
+
+[data-sf-motion="premium"] .sf-product-card:hover img {
+  transform: scale(1.08);
+}
+
+[data-sf-motion="premium"] .sf-hero-cta {
+  animation: sf-card-glow 3s ease-in-out infinite;
+}
+
+[data-sf-motion="subtle"] .sf-hero-float {
+  animation: sf-float 6s ease-in-out infinite;
+}
+
+/* Hero: aurora blobs */
+.sf-hero-aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+}
+
+.sf-hero-aurora-blob-1 {
+  width: 55%;
+  height: 55%;
+  top: -10%;
+  left: -5%;
+  background: var(--sf-primary);
+  animation: sf-aurora-1 14s ease-in-out infinite;
+}
+
+.sf-hero-aurora-blob-2 {
+  width: 45%;
+  height: 45%;
+  bottom: -5%;
+  right: -5%;
+  background: var(--sf-accent);
+  animation: sf-aurora-2 11s ease-in-out infinite;
+}
+
+/* Hero: 3D depth layers */
+.sf-hero-depth-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.sf-hero-depth-back {
+  transform: translateZ(-80px) scale(1.08);
+  opacity: 0.35;
+  filter: blur(2px);
+}
+
+.sf-hero-depth-mid {
+  transform: translateZ(-30px) scale(1.03);
+  opacity: 0.6;
+}
+
+/* Hero: spotlight */
+.sf-hero-spotlight-beam {
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    color-mix(in srgb, var(--sf-primary) 30%, transparent) 40deg,
+    transparent 80deg
+  );
+  animation: sf-spotlight-spin 12s linear infinite;
+  opacity: 0.5;
+}
+
+/* Hero: neon 3D grid */
+.sf-hero-neon-grid {
+  position: absolute;
+  inset: 0;
+  perspective: 400px;
+  overflow: hidden;
+}
+
+.sf-hero-neon-grid-plane {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: -20%;
+  height: 70%;
+  transform: rotateX(72deg);
+  transform-origin: center top;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--sf-primary) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--sf-primary) 55%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: sf-grid-scroll 2.5s linear infinite;
+  mask-image: linear-gradient(to top, black 30%, transparent 100%);
+}
+
+/* Hero: cinematic film grain overlay */
+.sf-hero-cinematic-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.sf-hero-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #fff 0%,
+    color-mix(in srgb, var(--sf-primary) 80%, #fff) 50%,
+    #fff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sf-shimmer 4s linear infinite;
+}
+
+/* Seller dashboard — animated paid template thumbnails */
+@keyframes sf-thumb-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.sf-template-thumb-paid {
+  position: relative;
+  background-size: 200% 200% !important;
+  animation: sf-thumb-shift 6s ease infinite;
+}
+
+.sf-template-thumb-paid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 60%
+  );
+  animation: sf-shimmer 3s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-ambient-orb,
+  .sf-hero-aurora-blob,
+  .sf-hero-spotlight-beam,
+  .sf-hero-neon-grid-plane,
+  .sf-hero-float,
+  .sf-section,
+  .sf-hero-shimmer-text {
+    animation: none !important;
+  }
+
+  [data-sf-motion="premium"] .sf-product-card:hover {
+    transform: translateY(-4px);
+  }
+}

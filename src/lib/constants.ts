@@ -146,6 +146,12 @@ export const FOOTER_STYLES = ["full", "slim"] as const;
 export const CARD_STYLES = ["rounded", "square", "borderless"] as const;
 export const BUTTON_STYLES = ["rounded", "pill", "square"] as const;
 
+export const HERO_STYLES = ["classic", "aurora", "depth", "spotlight", "neon-grid", "cinematic"] as const;
+export type HeroStyle = (typeof HERO_STYLES)[number];
+
+export const MOTION_PRESETS = ["none", "subtle", "cinematic", "premium"] as const;
+export type MotionPreset = (typeof MOTION_PRESETS)[number];
+
 export const SECTION_TYPES = [
   "featured_products",
   "featured_collections",

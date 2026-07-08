@@ -21,6 +21,8 @@ type Template = {
   previewColor: string | null;
   isCustom: boolean;
   purchased: boolean;
+  heroStyle?: string;
+  motionPreset?: string;
 };
 
 export function TemplateGallery({ storeId }: { storeId: string }) {
@@ -141,17 +143,32 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
               className="flex flex-col overflow-hidden rounded-xl border border-line bg-base"
             >
               <div
-                className="flex h-20 items-end p-3"
+                className={`flex h-24 items-end overflow-hidden p-3 ${t.tier === "PAID" ? "sf-template-thumb-paid" : ""}`}
                 style={{
-                  background: `linear-gradient(135deg, ${t.previewColor ?? "#E8A33D"}33, ${t.previewColor ?? "#E8A33D"}88)`,
+                  background:
+                    t.tier === "PAID"
+                      ? `linear-gradient(135deg, ${t.previewColor ?? "#E8A33D"}22, ${t.previewColor ?? "#E8A33D"}66)`
+                      : `linear-gradient(135deg, ${t.previewColor ?? "#E8A33D"}33, ${t.previewColor ?? "#E8A33D"}88)`,
                 }}
               >
-                <span
-                  className="rounded-md px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
-                  style={{ background: t.previewColor ?? "#E8A33D", color: "#0C0A09" }}
-                >
-                  {t.tier}
-                </span>
+                <div className="flex flex-wrap gap-1">
+                  <span
+                    className="rounded-md px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
+                    style={{ background: t.previewColor ?? "#E8A33D", color: "#0C0A09" }}
+                  >
+                    {t.tier}
+                  </span>
+                  {t.motionPreset === "premium" ? (
+                    <span className="rounded-md bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
+                      3D
+                    </span>
+                  ) : null}
+                  {t.motionPreset !== "none" ? (
+                    <span className="rounded-md bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
+                      Animated
+                    </span>
+                  ) : null}
+                </div>
               </div>
               <div className="flex flex-1 flex-col p-3">
                 <div className="flex items-center gap-1.5 text-[14px] font-semibold text-ink">
