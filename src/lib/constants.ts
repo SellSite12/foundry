@@ -159,6 +159,14 @@ export const HERO_STYLES = [
   "marble",
   "prism",
   "sunrise",
+  // WebGL shader heroes (paid tier)
+  "silk",
+  "iridescence",
+  "liquid-chrome",
+  "galaxy",
+  "light-rays",
+  "hyperspeed",
+  "aurora-flow",
 ] as const;
 export type HeroStyle = (typeof HERO_STYLES)[number];
 

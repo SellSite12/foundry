@@ -12,9 +12,9 @@ const FREE_STOREFRONT: Array<{
   snapshot: ThemeSnapshot;
 }> = [
   {
-    name: "Classic Copper",
-    slug: "classic-copper",
-    description: "Versatile warm dark theme — works for any store getting started.",
+    name: "Ember Core",
+    slug: "ember-core",
+    description: "Warm copper glow with living aurora light — a confident start for any store.",
     industry: "All categories",
     previewColor: "#E8A33D",
     snapshot: {
@@ -26,24 +26,25 @@ const FREE_STOREFRONT: Array<{
       footerStyle: "full",
       cardStyle: "rounded",
       buttonStyle: "rounded",
+      heroStyle: "aurora",
       motionPreset: "subtle",
-      bannerHeading: "Welcome to our store",
-      bannerSubheading: "Quality products, shipped fast.",
+      bannerHeading: "Made to be remembered",
+      bannerSubheading: "Quality products, honest prices, and shipping that doesn't keep you waiting.",
       sections: DEFAULT_SECTIONS,
       testimonials: [
-        { author: "Alex M.", quote: "Fast shipping and great quality.", rating: 5 },
-        { author: "Jordan K.", quote: "Exactly what I was looking for.", rating: 5 },
+        { author: "Alex M.", quote: "Ordered Monday, arrived Wednesday. Instant repeat customer.", rating: 5 },
+        { author: "Jordan K.", quote: "Exactly as pictured — better, actually.", rating: 5 },
       ],
       faq: [
         { question: "How long does shipping take?", answer: "Most orders ship within 2 business days." },
-        { question: "What is your return policy?", answer: "30-day returns on unused items." },
+        { question: "What is your return policy?", answer: "30-day returns on unused items, no questions asked." },
       ],
     },
   },
   {
-    name: "Boutique Light",
-    slug: "light-minimal",
-    description: "Airy boutique layout for fashion, gifts, and lifestyle brands.",
+    name: "Atelier Blanc",
+    slug: "atelier-blanc",
+    description: "Gallery-white minimalism with serif headlines for boutiques and lifestyle brands.",
     industry: "Fashion & Apparel",
     previewColor: "#C4A484",
     snapshot: {
@@ -56,8 +57,8 @@ const FREE_STOREFRONT: Array<{
       cardStyle: "borderless",
       buttonStyle: "pill",
       motionPreset: "subtle",
-      bannerHeading: "Curated for you",
-      bannerSubheading: "Timeless pieces for everyday elegance.",
+      bannerHeading: "Curated, not crowded",
+      bannerSubheading: "A small edit of pieces we'd actually wear — restocked seasonally.",
       sections: [
         { type: "featured_products", title: "New arrivals", limit: 8 },
         { type: "featured_collections", title: "Shop the look", limit: 4 },
@@ -66,9 +67,9 @@ const FREE_STOREFRONT: Array<{
     },
   },
   {
-    name: "Artisan Kitchen",
-    slug: "bakery-warm",
-    description: "Warm sunrise hero with rising steam — perfect for bakeries, cafés, and food brands.",
+    name: "Golden Crust",
+    slug: "golden-crust",
+    description: "Sunrise warmth and rising steam for bakeries, cafés, and food brands.",
     industry: "Food & Beverage",
     previewColor: "#E85D04",
     snapshot: {
@@ -82,7 +83,7 @@ const FREE_STOREFRONT: Array<{
       buttonStyle: "pill",
       heroStyle: "sunrise",
       motionPreset: "subtle",
-      bannerHeading: "Baked with love",
+      bannerHeading: "Out of the oven at 6am",
       bannerSubheading: "Fresh from our kitchen to your table — order for pickup or delivery.",
       sections: [
         { type: "featured_products", title: "Today's favorites", limit: 6 },
@@ -96,9 +97,9 @@ const FREE_STOREFRONT: Array<{
     },
   },
   {
-    name: "Glow Ritual",
-    slug: "beauty-glow",
-    description: "Soft bokeh lights and rose tones for skincare, cosmetics, and wellness.",
+    name: "Dew",
+    slug: "dew-glow",
+    description: "Soft-focus bokeh light and rose tones for skincare, cosmetics, and wellness.",
     industry: "Beauty & Cosmetics",
     previewColor: "#E8A0BF",
     snapshot: {
@@ -112,8 +113,8 @@ const FREE_STOREFRONT: Array<{
       buttonStyle: "pill",
       heroStyle: "bokeh",
       motionPreset: "subtle",
-      bannerHeading: "Your glow, elevated",
-      bannerSubheading: "Clean formulas. Visible results. A ritual you'll actually love.",
+      bannerHeading: "Skin first. Makeup second.",
+      bannerSubheading: "Clean formulas. Visible results. A ritual you'll actually keep.",
       sections: [
         { type: "featured_products", title: "Bestsellers", limit: 6 },
         { type: "testimonials", title: "Real results" },
@@ -122,9 +123,9 @@ const FREE_STOREFRONT: Array<{
     },
   },
   {
-    name: "Code Terminal",
-    slug: "tech-mono",
-    description: "Holographic grid hero for SaaS, plugins, templates, and digital downloads.",
+    name: "Pixel Forge",
+    slug: "pixel-forge",
+    description: "Holographic grid and monospace type for SaaS, plugins, and digital downloads.",
     industry: "Software & Digital",
     previewColor: "#3B82F6",
     snapshot: {
@@ -151,9 +152,9 @@ const FREE_STOREFRONT: Array<{
     },
   },
   {
-    name: "Home Haven",
-    slug: "home-haven",
-    description: "Marble textures and warm neutrals for furniture, décor, and home goods.",
+    name: "Nest",
+    slug: "nest-loft",
+    description: "Marble veining and warm neutrals for furniture, décor, and home goods.",
     industry: "Home & Decor",
     previewColor: "#A68A64",
     snapshot: {
@@ -167,8 +168,8 @@ const FREE_STOREFRONT: Array<{
       buttonStyle: "rounded",
       heroStyle: "marble",
       motionPreset: "subtle",
-      bannerHeading: "Elevate your space",
-      bannerSubheading: "Handpicked home pieces that make every room feel intentional.",
+      bannerHeading: "Rooms worth coming home to",
+      bannerSubheading: "Handpicked pieces that make every room feel intentional.",
       sections: [
         { type: "featured_collections", title: "Shop by room", limit: 4 },
         { type: "featured_products", title: "Featured pieces", limit: 8 },
@@ -176,9 +177,9 @@ const FREE_STOREFRONT: Array<{
     },
   },
   {
-    name: "Pulse Fit",
-    slug: "fitness-fresh",
-    description: "Orbiting energy rings for gyms, supplements, and activewear brands.",
+    name: "Velocity",
+    slug: "velocity-lab",
+    description: "Orbiting energy rings and bold type for gyms, supplements, and activewear.",
     industry: "Health & Fitness",
     previewColor: "#22C55E",
     snapshot: {
@@ -192,7 +193,7 @@ const FREE_STOREFRONT: Array<{
       buttonStyle: "pill",
       heroStyle: "orbit",
       motionPreset: "subtle",
-      bannerHeading: "Train harder",
+      bannerHeading: "Earn the result",
       bannerSubheading: "Gear and supplements built for athletes who don't settle.",
       sections: [
         { type: "featured_products", title: "Top picks", limit: 8 },
@@ -201,9 +202,9 @@ const FREE_STOREFRONT: Array<{
     },
   },
   {
-    name: "Paw & Co",
-    slug: "pet-corner",
-    description: "Playful aurora gradients for pet food, toys, and accessories.",
+    name: "Wildtail",
+    slug: "wildtail",
+    description: "Playful aurora color and rounded cards for pet food, toys, and accessories.",
     industry: "Pet Supplies",
     previewColor: "#F59E0B",
     snapshot: {
@@ -217,7 +218,7 @@ const FREE_STOREFRONT: Array<{
       buttonStyle: "pill",
       heroStyle: "aurora",
       motionPreset: "subtle",
-      bannerHeading: "Happy pets, happy life",
+      bannerHeading: "Tail-wag guaranteed",
       bannerSubheading: "Premium nutrition and toys your furry family will obsess over.",
       sections: DEFAULT_SECTIONS,
     },
@@ -226,9 +227,9 @@ const FREE_STOREFRONT: Array<{
 
 const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
   {
-    name: "Runway Luxe",
-    slug: "luxury-noir",
-    description: "Flowing marble veins, gold shimmer type, and 3D tilt cards — haute couture energy.",
+    name: "Noir Chrome",
+    slug: "noir-chrome",
+    description: "Molten liquid-metal hero rendered live in WebGL — high fashion, liquid light.",
     industry: "Fashion & Apparel",
     previewColor: "#C9A227",
     snapshot: {
@@ -240,7 +241,7 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
       footerStyle: "slim",
       cardStyle: "borderless",
       buttonStyle: "pill",
-      heroStyle: "marble",
+      heroStyle: "liquid-chrome",
       motionPreset: "premium",
       announcementEnabled: true,
       announcementText: "Complimentary shipping on orders over $150",
@@ -258,21 +259,21 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Goldsmith",
-    slug: "goldsmith",
-    description: "Twin rotating spotlights and velvet-dark backdrop for fine jewelry and watches.",
+    name: "Lumière",
+    slug: "lumiere",
+    description: "Volumetric light rays pour over your jewelry like a museum vitrine — pure WebGL.",
     industry: "Jewelry & Watches",
     previewColor: "#D4AF37",
     snapshot: {
       primaryColor: "#D4AF37",
-      accentColor: "#B8860B",
+      accentColor: "#F5E6C4",
       mode: "dark",
       font: "serif",
       headerStyle: "minimal",
       footerStyle: "slim",
       cardStyle: "borderless",
       buttonStyle: "pill",
-      heroStyle: "spotlight",
+      heroStyle: "light-rays",
       motionPreset: "premium",
       announcementEnabled: true,
       announcementText: "Complimentary gift wrapping on all orders",
@@ -289,21 +290,21 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Glow Lab",
-    slug: "glow-lab",
-    description: "Drifting bokeh orbs and glass cards for premium skincare and wellness brands.",
+    name: "Silk Ritual",
+    slug: "silk-ritual",
+    description: "Real flowing silk rendered in WebGL — waves of soft light behind your products.",
     industry: "Skincare & Wellness",
     previewColor: "#F472B6",
     snapshot: {
       primaryColor: "#EC4899",
       accentColor: "#F9A8D4",
-      mode: "light",
+      mode: "dark",
       font: "sans",
       headerStyle: "centered",
       footerStyle: "full",
       cardStyle: "rounded",
       buttonStyle: "pill",
-      heroStyle: "bokeh",
+      heroStyle: "silk",
       motionPreset: "premium",
       bannerHeading: "Science meets ritual",
       bannerSubheading: "Clinical-grade actives in formulas so luxurious, you'll never skip a step.",
@@ -319,9 +320,9 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Farm & Table",
-    slug: "farm-table",
-    description: "Rising steam, golden sunrise glow, and warm typography for gourmet food brands.",
+    name: "Ember Harvest",
+    slug: "ember-harvest",
+    description: "Golden sunrise glow, rising steam, and 3D tilt cards for gourmet food brands.",
     industry: "Gourmet Food",
     previewColor: "#DC2626",
     snapshot: {
@@ -347,9 +348,9 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Iron Pulse",
-    slug: "iron-pulse",
-    description: "3D orbital rings and pulsing energy core for supplements and performance gear.",
+    name: "Apex",
+    slug: "apex-orbit",
+    description: "3D orbital rings, pulsing energy core, and tilt-on-hover cards for performance brands.",
     industry: "Fitness & Sports",
     previewColor: "#22D3EE",
     snapshot: {
@@ -378,9 +379,9 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Street Drop",
-    slug: "neon-pop",
-    description: "Dual neon grid floors, shimmer headlines, and cyberpunk glow for streetwear drops.",
+    name: "Neon District",
+    slug: "neon-district",
+    description: "Iridescent oil-slick WebGL backdrop with shimmer type — built for hype drops.",
     industry: "Streetwear & Sneakers",
     previewColor: "#00FF88",
     snapshot: {
@@ -392,7 +393,7 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
       footerStyle: "slim",
       cardStyle: "rounded",
       buttonStyle: "pill",
-      heroStyle: "neon-grid",
+      heroStyle: "iridescence",
       motionPreset: "premium",
       announcementEnabled: true,
       announcementText: "⚡ DROP LIVE — limited stock",
@@ -409,9 +410,9 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Code Forge",
-    slug: "code-forge",
-    description: "Holographic sheen and scan-line grid for SaaS, APIs, and digital product launches.",
+    name: "Warp Drive",
+    slug: "warp-drive",
+    description: "Hyperspeed light streaks racing past in WebGL — a launch page that feels like liftoff.",
     industry: "SaaS & Digital Products",
     previewColor: "#6366F1",
     snapshot: {
@@ -423,7 +424,7 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
       footerStyle: "slim",
       cardStyle: "rounded",
       buttonStyle: "rounded",
-      heroStyle: "hologram",
+      heroStyle: "hyperspeed",
       motionPreset: "premium",
       bannerHeading: "Build the future",
       bannerSubheading: "Ship production-ready tools in hours, not months. Your stack, supercharged.",
@@ -438,8 +439,8 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Artist Prism",
-    slug: "artist-prism",
+    name: "Prism Atelier",
+    slug: "prism-atelier",
     description: "Rotating color prisms and iridescent motion for art prints, ceramics, and handmade goods.",
     industry: "Art & Handmade",
     previewColor: "#A855F7",
@@ -461,12 +462,15 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
         { type: "testimonials", title: "Collector stories" },
         { type: "rich_text", title: "About the work", body: "Every piece is one-of-a-kind or from a numbered edition of 50 or fewer." },
       ],
+      testimonials: [
+        { author: "Nadia B.", quote: "Framed it the day it arrived. The store itself felt like a gallery.", rating: 5 },
+      ],
     },
   },
   {
-    name: "Vogue Edit",
-    slug: "editorial-magazine",
-    description: "Cinematic widescreen hero with film grain and staggered editorial section reveals.",
+    name: "First Edition",
+    slug: "first-edition",
+    description: "Cinematic widescreen hero with film grain and staggered editorial reveals — cover-story energy.",
     industry: "Lifestyle & Editorial",
     previewColor: "#E63946",
     snapshot: {
@@ -494,9 +498,9 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Living Space",
-    slug: "obsidian-depth",
-    description: "Layered 3D parallax with floating particles for furniture and interior design brands.",
+    name: "Obsidian Loft",
+    slug: "obsidian-loft",
+    description: "Layered 3D parallax depth with floating particles for furniture and interior brands.",
     industry: "Furniture & Interiors",
     previewColor: "#78716C",
     snapshot: {
@@ -522,21 +526,21 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Wonder Kids",
-    slug: "wonder-kids",
-    description: "Playful aurora gradients and bouncy 3D cards for toys, kids' clothing, and baby brands.",
+    name: "Little Cosmos",
+    slug: "little-cosmos",
+    description: "A living WebGL galaxy with drifting, twinkling stars — bedtime-story magic for kids' brands.",
     industry: "Toys & Kids",
     previewColor: "#FBBF24",
     snapshot: {
       primaryColor: "#FBBF24",
       accentColor: "#F472B6",
-      mode: "light",
+      mode: "dark",
       font: "sans",
       headerStyle: "centered",
       footerStyle: "full",
       cardStyle: "rounded",
       buttonStyle: "pill",
-      heroStyle: "aurora",
+      heroStyle: "galaxy",
       motionPreset: "premium",
       bannerHeading: "Where imaginations grow",
       bannerSubheading: "Safe, joyful products that spark creativity and make bedtime easier.",
@@ -551,9 +555,9 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
     },
   },
   {
-    name: "Aurora Studio",
-    slug: "aurora-drift",
-    description: "Triple aurora blobs in deep 3D space with mouse parallax — for creators and premium brands.",
+    name: "Northern Studio",
+    slug: "northern-studio",
+    description: "Aurora curtains breathing across a WebGL night sky — an unforgettable first impression.",
     industry: "Creators & Brands",
     previewColor: "#7C3AED",
     snapshot: {
@@ -565,7 +569,7 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
       footerStyle: "full",
       cardStyle: "rounded",
       buttonStyle: "pill",
-      heroStyle: "aurora",
+      heroStyle: "aurora-flow",
       motionPreset: "premium",
       bannerHeading: "Create without limits",
       bannerSubheading: "An immersive storefront with living color, soft 3D motion, and parallax depth.",
@@ -583,19 +587,43 @@ const PAID_STOREFRONT: typeof FREE_STOREFRONT = [
 ];
 
 const PAID_PRICES: Record<string, number> = {
-  "luxury-noir": 3900,
-  goldsmith: 4900,
-  "glow-lab": 4900,
-  "farm-table": 3900,
-  "iron-pulse": 4900,
-  "neon-pop": 5900,
-  "code-forge": 5900,
-  "artist-prism": 4900,
-  "editorial-magazine": 6900,
-  "obsidian-depth": 6900,
-  "wonder-kids": 3900,
-  "aurora-drift": 5900,
+  "noir-chrome": 4900,
+  lumiere: 5900,
+  "silk-ritual": 4900,
+  "ember-harvest": 3900,
+  "apex-orbit": 4900,
+  "neon-district": 6900,
+  "warp-drive": 5900,
+  "prism-atelier": 4900,
+  "first-edition": 6900,
+  "obsidian-loft": 6900,
+  "little-cosmos": 3900,
+  "northern-studio": 5900,
 };
+
+/** Old platform template slugs that were replaced — unpublished on sync so they vanish from the gallery. */
+const RETIRED_SLUGS = [
+  "classic-copper",
+  "light-minimal",
+  "bakery-warm",
+  "beauty-glow",
+  "tech-mono",
+  "home-haven",
+  "fitness-fresh",
+  "pet-corner",
+  "luxury-noir",
+  "goldsmith",
+  "glow-lab",
+  "farm-table",
+  "iron-pulse",
+  "neon-pop",
+  "code-forge",
+  "artist-prism",
+  "editorial-magazine",
+  "obsidian-depth",
+  "wonder-kids",
+  "aurora-drift",
+];
 
 type EmailSeed = {
   tier: "FREE" | "PAID";
@@ -718,26 +746,26 @@ const EMAIL_TEMPLATES: EmailSeed[] = [
 
 /** Visual profiles make each category feel distinct across the whole page, not just the hero. */
 const VISUAL_PROFILE_BY_SLUG: Record<string, string> = {
-  "classic-copper": "general",
-  "light-minimal": "fashion",
-  "bakery-warm": "food",
-  "beauty-glow": "beauty",
-  "tech-mono": "tech",
-  "home-haven": "home",
-  "fitness-fresh": "fitness",
-  "pet-corner": "kids",
-  "luxury-noir": "fashion",
-  goldsmith: "jewelry",
-  "glow-lab": "beauty",
-  "farm-table": "food",
-  "iron-pulse": "fitness",
-  "neon-pop": "streetwear",
-  "code-forge": "tech",
-  "artist-prism": "art",
-  "editorial-magazine": "editorial",
-  "obsidian-depth": "home",
-  "wonder-kids": "kids",
-  "aurora-drift": "art",
+  "ember-core": "general",
+  "atelier-blanc": "fashion",
+  "golden-crust": "food",
+  "dew-glow": "beauty",
+  "pixel-forge": "tech",
+  "nest-loft": "home",
+  "velocity-lab": "fitness",
+  wildtail: "kids",
+  "noir-chrome": "fashion",
+  lumiere: "jewelry",
+  "silk-ritual": "beauty",
+  "ember-harvest": "food",
+  "apex-orbit": "fitness",
+  "neon-district": "streetwear",
+  "warp-drive": "tech",
+  "prism-atelier": "art",
+  "first-edition": "editorial",
+  "obsidian-loft": "home",
+  "little-cosmos": "kids",
+  "northern-studio": "art",
 };
 
 function enrichSnapshot(slug: string, snapshot: ThemeSnapshot): ThemeSnapshot {
@@ -748,6 +776,13 @@ function enrichSnapshot(slug: string, snapshot: ThemeSnapshot): ThemeSnapshot {
 }
 
 export async function ensurePlatformTemplates() {
+  // Retire replaced platform templates. Stores that already applied one keep their
+  // current theme (it was copied into StoreTheme), and purchase records remain intact.
+  await db.storefrontTemplate.updateMany({
+    where: { storeId: null, slug: { in: RETIRED_SLUGS } },
+    data: { isPublished: false },
+  });
+
   for (const t of FREE_STOREFRONT) {
     await db.storefrontTemplate.upsert({
       where: { slug: t.slug },

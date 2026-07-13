@@ -12,6 +12,16 @@ import { Alert } from "@/components/ui/Alert";
 import { Modal } from "@/components/seller/ui";
 import { TemplateThumbHero } from "@/components/seller/TemplateThumbHero";
 
+const SHADER_HEROES = new Set([
+  "silk",
+  "iridescence",
+  "liquid-chrome",
+  "galaxy",
+  "light-rays",
+  "hyperspeed",
+  "aurora-flow",
+]);
+
 type Template = {
   id: string;
   name: string;
@@ -196,7 +206,11 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
                   >
                     {t.tier}
                   </span>
-                  {t.motionPreset === "premium" ? (
+                  {t.heroStyle && SHADER_HEROES.has(t.heroStyle) ? (
+                    <span className="rounded-md bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
+                      Live 3D
+                    </span>
+                  ) : t.motionPreset === "premium" ? (
                     <span className="rounded-md bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
                       3D
                     </span>

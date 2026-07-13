@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { StorefrontHeroMotion } from "@/components/storefront/StorefrontHeroMotion";
+import { HeroShader, type ShaderVariant } from "@/components/storefront/HeroShader";
 
 type Props = {
   slug: string;
@@ -11,6 +12,16 @@ type Props = {
   bannerHeading: string | null;
   bannerSubheading: string | null;
 };
+
+const SHADER_HEROES = new Set<string>([
+  "silk",
+  "iridescence",
+  "liquid-chrome",
+  "galaxy",
+  "light-rays",
+  "hyperspeed",
+  "aurora-flow",
+]);
 
 const PREMIUM_HEROES = new Set([
   "aurora",
@@ -24,6 +35,7 @@ const PREMIUM_HEROES = new Set([
   "marble",
   "prism",
   "sunrise",
+  ...SHADER_HEROES,
 ]);
 
 export function StorefrontHero({
@@ -46,9 +58,11 @@ export function StorefrontHero({
     heroStyle === "spotlight" ||
     heroStyle === "neon-grid" ||
     heroStyle === "hologram" ||
-    heroStyle === "prism"
+    heroStyle === "prism" ||
+    heroStyle === "iridescence" ||
+    heroStyle === "hyperspeed"
       ? "sf-hero-shimmer-text"
-      : heroStyle === "marble"
+      : heroStyle === "marble" || heroStyle === "liquid-chrome"
         ? "sf-hero-gold-text"
         : "text-white";
 
@@ -78,7 +92,11 @@ export function StorefrontHero({
     .join(" ");
 
   const minHeight =
-    heroStyle === "cinematic" || heroStyle === "marble" ? "480px" : isPremiumHero ? "400px" : "320px";
+    heroStyle === "cinematic" || heroStyle === "marble" || SHADER_HEROES.has(heroStyle)
+      ? "480px"
+      : isPremiumHero
+        ? "400px"
+        : "320px";
 
   return (
     <section
@@ -101,7 +119,13 @@ export function StorefrontHero({
         >
           {isPremiumHero ? (
             <span className="sf-hero-eyebrow">
-              {heroStyle === "sunrise" ? "Fresh today" : heroStyle === "orbit" ? "Now live" : "New collection"}
+              {heroStyle === "sunrise"
+                ? "Fresh today"
+                : heroStyle === "orbit" || heroStyle === "hyperspeed"
+                  ? "Now live"
+                  : heroStyle === "galaxy"
+                    ? "Explore the collection"
+                    : "New collection"}
             </span>
           ) : null}
           <h1 className={`max-w-2xl text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl ${shimmerClass}`}>
@@ -128,6 +152,18 @@ function HeroBackground({ heroStyle, bannerUrl }: { heroStyle: string; bannerUrl
         <div
           className="absolute inset-0"
           style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 70%)" }}
+        />
+      </>
+    );
+  }
+
+  if (SHADER_HEROES.has(heroStyle)) {
+    return (
+      <>
+        <HeroShader variant={heroStyle as ShaderVariant} />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.08) 65%)" }}
         />
       </>
     );
