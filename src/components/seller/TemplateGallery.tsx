@@ -12,15 +12,7 @@ import { Alert } from "@/components/ui/Alert";
 import { Modal } from "@/components/seller/ui";
 import { TemplateThumbHero } from "@/components/seller/TemplateThumbHero";
 
-const SHADER_HEROES = new Set([
-  "silk",
-  "iridescence",
-  "liquid-chrome",
-  "galaxy",
-  "light-rays",
-  "hyperspeed",
-  "aurora-flow",
-]);
+import { isShaderHero } from "@/components/storefront/HeroShader";
 
 type Template = {
   id: string;
@@ -206,7 +198,7 @@ export function TemplateGallery({ storeId }: { storeId: string }) {
                   >
                     {t.tier}
                   </span>
-                  {t.heroStyle && SHADER_HEROES.has(t.heroStyle) ? (
+                  {isShaderHero(t.heroStyle) ? (
                     <span className="rounded-md bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
                       Live 3D
                     </span>

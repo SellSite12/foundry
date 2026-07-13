@@ -248,6 +248,10 @@ void main() {
 
 export const SHADER_VARIANTS = Object.keys(FRAGMENTS) as ShaderVariant[];
 
+export function isShaderHero(style: string | null | undefined): style is ShaderVariant {
+  return Boolean(style) && (SHADER_VARIANTS as string[]).includes(style as string);
+}
+
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace("#", "");
   const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;

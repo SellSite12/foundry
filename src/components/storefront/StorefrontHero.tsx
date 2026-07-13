@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { StorefrontHeroMotion } from "@/components/storefront/StorefrontHeroMotion";
-import { HeroShader, type ShaderVariant } from "@/components/storefront/HeroShader";
 
 type Props = {
   slug: string;
@@ -158,14 +157,14 @@ function HeroBackground({ heroStyle, bannerUrl }: { heroStyle: string; bannerUrl
   }
 
   if (SHADER_HEROES.has(heroStyle)) {
+    // The shader itself renders page-wide via StorefrontAmbient; the hero stays
+    // transparent so the scene flows seamlessly through it. Only add a soft
+    // scrim behind the headline for readability.
     return (
-      <>
-        <HeroShader variant={heroStyle as ShaderVariant} />
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.08) 65%)" }}
-        />
-      </>
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.04) 65%)" }}
+      />
     );
   }
 
