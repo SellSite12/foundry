@@ -181,7 +181,7 @@ export function BillingManager({
           <div className="flex flex-col items-center py-6 text-center">
             <Receipt size={18} className="mb-2 text-ink-faint" />
             <p className="max-w-xs text-[13px] text-ink-faint">
-              No invoices yet — they're generated when paid-plan payment collection
+              No invoices yet — they&apos;re generated when paid-plan payment collection
               launches with Phase 4 checkout.
             </p>
           </div>

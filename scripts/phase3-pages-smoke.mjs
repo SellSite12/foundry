@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Smoke test: every seller page must render (HTTP 200) for an authenticated
 // seller with a completed store. Usage: node scripts/phase3-pages-smoke.mjs
 

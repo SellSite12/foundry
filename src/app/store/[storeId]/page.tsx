@@ -6,7 +6,6 @@ import {
   Users,
   Package,
   TrendingUp,
-  Repeat,
   ArrowRight,
   Bell,
   Plus,

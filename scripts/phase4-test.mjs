@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Phase 4 end-to-end verification: storefront, cart, checkout, payments,
 // marketplace, reviews, customer account, automatic discounts, data isolation.
 // Usage: node scripts/phase4-test.mjs  (requires npm start)
@@ -128,7 +128,6 @@ const shopSlug = store.slug;
 }
 
 // --- cart + quote + checkout (guest) -----------------------------------------
-let orderId;
 {
   const add = await req(`/api/shop/${shopSlug}/cart`, {
     method: "POST",
@@ -182,7 +181,6 @@ let orderId;
       expectedTotalCents: q.totalCents,
     },
   });
-  orderId = checkout.json?.data?.order?.id;
   check(
     "guest checkout succeeds with Foundry Pay",
     checkout.res.status === 201 && checkout.json?.data?.order?.status === "PAID",

@@ -71,7 +71,9 @@ export function MarketplaceSearch({ initialQuery = "" }: { initialQuery?: string
             onFocus={() => hasResults && setOpen(true)}
             placeholder="Search products, sellers, categories…"
             aria-label="Search"
+            role="combobox"
             aria-expanded={open}
+            aria-controls="marketplace-search-suggestions"
             aria-autocomplete="list"
             className="w-full rounded-xl border border-line bg-surface py-2.5 pl-10 pr-4 text-[14px] text-ink outline-none transition-colors focus:border-copper"
           />
@@ -80,6 +82,7 @@ export function MarketplaceSearch({ initialQuery = "" }: { initialQuery?: string
 
       {open && hasResults ? (
         <div
+          id="marketplace-search-suggestions"
           className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-line bg-surface shadow-2xl"
           role="listbox"
           aria-label="Search suggestions"

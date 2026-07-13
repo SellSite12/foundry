@@ -668,7 +668,7 @@ export function CheckoutFlow({
 
               {payKind === "wallet" ? (
                 <p className="border p-4 text-[13.5px]" style={{ borderRadius: "10px", borderColor: "var(--sf-line)", color: "var(--sf-text-dim)" }}>
-                  You'll pay with your digital wallet balance. The payment is authorized when you place the order.
+                  You&apos;ll pay with your digital wallet balance. The payment is authorized when you place the order.
                 </p>
               ) : null}
 

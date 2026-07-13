@@ -6,7 +6,7 @@ export function CodeStorefrontScripts({ js }: { js: string }) {
   useEffect(() => {
     if (!js.trim()) return;
     try {
-      // eslint-disable-next-line no-new-func
+       
       const fn = new Function(js);
       fn();
     } catch {

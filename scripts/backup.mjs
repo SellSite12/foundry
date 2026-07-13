@@ -1,8 +1,8 @@
-# Foundry Backup Script
-# Creates timestamped backups of the SQLite database and upload/report directories.
-# Usage: node scripts/backup.mjs
+// Foundry Backup Script
+// Creates timestamped backups of the local dev database and upload/report directories.
+// Usage: node scripts/backup.mjs
 
-import { mkdir, copyFile, readdir, stat } from "fs/promises";
+import { mkdir, copyFile, readdir } from "fs/promises";
 import path from "path";
 
 const ROOT = process.cwd();

@@ -1,10 +1,9 @@
 import { NextRequest } from "next/server";
 
-import { ApiError, ok, parseBody, withErrorHandling } from "@/lib/api";
+import { ok, parseBody, withErrorHandling } from "@/lib/api";
 import { db } from "@/lib/db";
 import { requireStoreAccess } from "@/lib/seller/access";
 import { getOrCreateTheme } from "@/lib/shop/theme";
-import { applyThemeSnapshot } from "@/lib/templates/theme";
 import { z } from "zod";
 
 const codeBodySchema = z.object({

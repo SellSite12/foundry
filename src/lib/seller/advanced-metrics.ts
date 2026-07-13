@@ -131,14 +131,8 @@ export async function getAdvancedMetrics(storeId: string, range: DateRange = "30
     0
   );
 
-  // Cohort retention (by signup month, 3-month window)
+  // Cohort retention (by signup month, 3-month window) — not yet computed
   const cohorts: { month: string; customers: number; retained: number; rate: number }[] = [];
-  const byMonth = new Map<string, string[]>();
-  for (const c of customers) {
-    // use first order date as proxy
-    const first = c.orders.sort((a, b) => a.totalCents - b.totalCents)[0];
-    if (!first) continue;
-  }
 
   // Inventory turnover = COGS proxy / avg inventory
   const cogsProxy = paidOrders.reduce(

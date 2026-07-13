@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { getUpload, urlToSegments } from "@/lib/storage";
+import { getUpload } from "@/lib/storage";
 
 /**
  * Serves uploaded media from local disk (dev) or Netlify Blobs (production).

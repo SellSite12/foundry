@@ -4,8 +4,6 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { Upload, Trash2, Film, Loader2, Link2 } from "lucide-react";
 
-import { api } from "@/lib/client/api";
-
 type Img = { url: string; alt: string; isVideo: boolean };
 
 /** Product media strip: upload to the store media library or add by URL. */

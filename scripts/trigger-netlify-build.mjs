@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Fix Netlify build cmd and trigger production deploy.
 import { readFile } from "fs/promises";
 import path from "path";

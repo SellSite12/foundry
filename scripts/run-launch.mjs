@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Full launch verification: all phase tests + launch report.
 // Usage: node scripts/run-launch.mjs  (server must be running)
 

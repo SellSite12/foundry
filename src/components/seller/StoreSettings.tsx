@@ -93,7 +93,7 @@ export function StoreSettings({ store, isOwner }: { store: StoreForm; isOwner: b
     router.refresh();
   }
 
-  const SavedBadge = ({ section }: { section: string }) =>
+  const savedBadge = (section: string) =>
     savedSection === section ? (
       <span className="fdy-pop flex items-center gap-1.5 text-[12px] text-success">
         <Check size={13} /> Saved
@@ -105,7 +105,7 @@ export function StoreSettings({ store, isOwner }: { store: StoreForm; isOwner: b
       {error && <Alert kind="error">{error}</Alert>}
 
       {/* Store profile */}
-      <Panel title="Store profile" actions={<SavedBadge section="profile" />}>
+      <Panel title="Store profile" actions={savedBadge("profile")}>
         <div className="flex flex-col gap-4">
           <Input
             label="Store name"
@@ -169,7 +169,7 @@ export function StoreSettings({ store, isOwner }: { store: StoreForm; isOwner: b
       </Panel>
 
       {/* Contact & address */}
-      <Panel title="Contact & address" actions={<SavedBadge section="contact" />}>
+      <Panel title="Contact & address" actions={savedBadge("contact")}>
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Input
@@ -243,7 +243,7 @@ export function StoreSettings({ store, isOwner }: { store: StoreForm; isOwner: b
         id="tax"
         title="Tax, currency & locale"
         description="Applied to new orders; existing orders keep their totals."
-        actions={<SavedBadge section="tax" />}
+        actions={savedBadge("tax")}
       >
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -321,7 +321,7 @@ export function StoreSettings({ store, isOwner }: { store: StoreForm; isOwner: b
       </Panel>
 
       {/* Branding */}
-      <Panel id="branding" title="Branding" actions={<SavedBadge section="branding" />}>
+      <Panel id="branding" title="Branding" actions={savedBadge("branding")}>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-4">
             <div

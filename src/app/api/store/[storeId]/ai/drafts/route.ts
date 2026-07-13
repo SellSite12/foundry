@@ -60,7 +60,7 @@ export const POST = withErrorHandling(async (req: NextRequest, { params }) => {
 
 export const PATCH = withErrorHandling(async (req: NextRequest, { params }) => {
   const { storeId } = await params;
-  const { user } = await requireStoreAccess(storeId, "ai");
+  await requireStoreAccess(storeId, "ai");
   const data = await parseBody(req, publishSchema);
 
   const draft = await db.aiDraft.findFirst({ where: { id: data.id, storeId, status: "PENDING" } });

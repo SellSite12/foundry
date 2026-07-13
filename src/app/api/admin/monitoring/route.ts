@@ -1,5 +1,3 @@
-import { NextRequest } from "next/server";
-
 import { db } from "@/lib/db";
 import { ok, fail, withErrorHandling } from "@/lib/api";
 import { requireUser } from "@/lib/auth/session";

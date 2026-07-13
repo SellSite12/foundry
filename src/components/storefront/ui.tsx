@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { formatMoney } from "@/lib/money";
 import { ProductCardLink } from "@/components/storefront/ProductCardLink";
 

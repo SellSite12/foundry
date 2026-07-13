@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Phase 2 end-to-end verification against a running server (npm start).
 // Usage: node scripts/phase2-test.mjs
 

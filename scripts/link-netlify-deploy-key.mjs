@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Link Netlify site to GitHub via deploy key (when GitHub App not installed).
 // Usage: node scripts/link-netlify-deploy-key.mjs [owner/repo] [branch]
 

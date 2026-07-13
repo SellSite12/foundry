@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Generates production secrets and writes/updates .env
 // Usage: node scripts/setup-production-env.mjs
 

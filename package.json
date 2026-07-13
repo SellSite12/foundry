@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/phase6-test.mjs",
     "test:all": "node scripts/phase2-test.mjs && node scripts/phase3-test.mjs && node scripts/phase4-test.mjs && node scripts/phase5-test.mjs && node scripts/phase6-test.mjs",
@@ -57,12 +57,15 @@
     "lightningcss-linux-x64-gnu": "1.32.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.6",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "26.1.0",
     "@types/nodemailer": "^8.0.1",
     "@types/pg": "^8.20.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@types/ws": "^8.18.1"
+    "@types/ws": "^8.18.1",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.10"
   }
 }

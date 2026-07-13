@@ -19,6 +19,10 @@ const V1_ENDPOINTS = [
   ["GET", "/api/v1/{storeId}/users", "Team members"],
 ];
 
+function last24h() {
+  return new Date(Date.now() - 86_400_000);
+}
+
 export default async function DeveloperPage({
   params,
 }: {
@@ -50,7 +54,7 @@ export default async function DeveloperPage({
   ]);
 
   const logs24h = await db.apiRequestLog.count({
-    where: { storeId, createdAt: { gte: new Date(Date.now() - 86_400_000) } },
+    where: { storeId, createdAt: { gte: last24h() } },
   });
 
   return (

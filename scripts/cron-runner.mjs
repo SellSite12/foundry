@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Local cron worker — calls internal cron endpoints on an interval.
 // Usage: node scripts/cron-runner.mjs
 // Production: use system cron / Kubernetes CronJob instead.

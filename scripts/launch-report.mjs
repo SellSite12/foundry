@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Generates a launch readiness report from test results and health checks.
 // Usage: node scripts/launch-report.mjs
 

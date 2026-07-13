@@ -1,6 +1,3 @@
-import { NextResponse } from "next/server";
-
-import { db } from "@/lib/db";
 import { ok, withErrorHandling } from "@/lib/api";
 import { APP_VERSION, validateProductionConfig } from "@/lib/config";
 import { getUptimeSeconds } from "@/lib/observability/metrics";

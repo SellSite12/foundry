@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Phase 5 verification: AI assistant, insights, public API v1, webhooks,
 // integrations, reports, audit logs, advanced analytics, background jobs.
 // Usage: node scripts/phase5-test.mjs  (requires npm start)

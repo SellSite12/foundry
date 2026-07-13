@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
-import { db } from "@/lib/db";
 import { ok, parseBody, withErrorHandling } from "@/lib/api";
 import { requireStoreAccess } from "@/lib/seller/access";
 import { enqueueJob } from "@/lib/jobs/queue";

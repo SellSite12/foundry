@@ -4,13 +4,17 @@ import { PageHeader, Panel } from "@/components/seller/ui";
 
 export const metadata = { title: "Platform monitoring" };
 
+function last24h() {
+  return new Date(Date.now() - 86_400_000);
+}
+
 export default async function AdminMonitoringPage() {
   const [users, stores, orders, queue, apiLogs, failedJobs] = await Promise.all([
     db.user.count(),
     db.store.count(),
     db.order.count(),
     getQueueStats(),
-    db.apiRequestLog.count({ where: { createdAt: { gte: new Date(Date.now() - 86_400_000) } } }),
+    db.apiRequestLog.count({ where: { createdAt: { gte: last24h() } } }),
     db.backgroundJob.count({ where: { status: "FAILED" } }),
   ]);
 

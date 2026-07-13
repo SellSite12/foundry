@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Link Netlify site to GitHub repo using Netlify GitHub App installation ID.
 // Usage: node scripts/link-netlify-github.mjs [owner/repo] [branch]
 

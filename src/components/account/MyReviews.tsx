@@ -46,7 +46,7 @@ export function MyReviews() {
   if (reviews.length === 0) {
     return (
       <p className="mt-8 rounded-2xl border border-line px-6 py-16 text-center text-[13.5px] text-ink-dim">
-        You haven't written any reviews yet. After buying something, share your experience on the product page.
+        You haven&apos;t written any reviews yet. After buying something, share your experience on the product page.
       </p>
     );
   }

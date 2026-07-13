@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Phase 6 production readiness verification.
 // Usage: node scripts/phase6-test.mjs  (requires npm start)
 

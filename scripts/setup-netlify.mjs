@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Prints Netlify launch checklist and validates local .env.
 // Usage: node scripts/setup-netlify.mjs
 

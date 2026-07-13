@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { z } from "zod";
 
 import { db } from "@/lib/db";
-import { ok, fail, parseBody, withErrorHandling } from "@/lib/api";
+import { ok, parseBody, withErrorHandling } from "@/lib/api";
 import { requireStoreAccess } from "@/lib/seller/access";
 import { chatWithAssistant } from "@/lib/ai/insights";
 

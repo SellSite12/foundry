@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Prisma generate + migrate for Netlify/Neon.
 // Build succeeds without DATABASE_URL (generate only). Migrations run when URL is present.
 

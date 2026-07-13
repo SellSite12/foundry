@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Writes netlify-env.import for Netlify UI → Import from .env
 // Usage: npm run export:netlify-env
 

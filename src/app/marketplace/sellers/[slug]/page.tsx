@@ -92,7 +92,7 @@ export default async function SellerProfilePage({ params }: { params: Params }) 
           Products ({products.length})
         </h2>
         {products.length === 0 ? (
-          <EmptyNote>This seller hasn't published any products yet.</EmptyNote>
+          <EmptyNote>This seller hasn&apos;t published any products yet.</EmptyNote>
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {products.map((p) => (

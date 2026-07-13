@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Re-link site to GitHub App (drop deploy key) and set build cmd.
 import { readFile } from "fs/promises";
 import path from "path";

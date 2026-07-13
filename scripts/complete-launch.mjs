@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // One-shot: import Netlify env vars, link site, trigger production deploy.
 // Requires: netlify CLI logged in (`netlify login`)
 // Usage: node scripts/complete-launch.mjs

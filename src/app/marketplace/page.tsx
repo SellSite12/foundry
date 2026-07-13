@@ -11,6 +11,10 @@ import {
 } from "@/lib/shop/marketplace";
 import { ProductCard, SectionHeading, EmptyNote } from "@/components/storefront/ui";
 
+function daysAgo(days: number) {
+  return new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+}
+
 export default async function MarketplaceHome() {
   const [newArrivals, soldAllTime, soldRecent, categories, sellers] = await Promise.all([
     db.product.findMany({
@@ -20,7 +24,7 @@ export default async function MarketplaceHome() {
       select: MARKETPLACE_CARD_SELECT,
     }),
     unitsSoldByProduct(),
-    unitsSoldByProduct(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)),
+    unitsSoldByProduct(daysAgo(30)),
     marketplaceCategories(),
     featuredSellers(6),
   ]);

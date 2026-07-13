@@ -3,7 +3,7 @@ import path from "path";
 
 const BLOB_STORE = "foundry-uploads";
 
-function useBlobs(): boolean {
+function blobsEnabled(): boolean {
   return process.env.UPLOAD_STORE === "blobs" || process.env.NETLIFY === "true";
 }
 
@@ -21,7 +21,7 @@ async function blobStore() {
 
 export async function putUpload(segments: string[], data: Buffer): Promise<void> {
   const key = segments.join("/");
-  if (useBlobs()) {
+  if (blobsEnabled()) {
     const store = await blobStore();
     await store.set(key, new Blob([new Uint8Array(data)]));
     return;
@@ -33,7 +33,7 @@ export async function putUpload(segments: string[], data: Buffer): Promise<void>
 
 export async function getUpload(segments: string[]): Promise<Buffer | null> {
   const key = segments.join("/");
-  if (useBlobs()) {
+  if (blobsEnabled()) {
     const store = await blobStore();
     const data = await store.get(key, { type: "arrayBuffer" });
     return data ? Buffer.from(data) : null;
@@ -47,7 +47,7 @@ export async function getUpload(segments: string[]): Promise<Buffer | null> {
 
 export async function deleteUpload(segments: string[]): Promise<void> {
   const key = segments.join("/");
-  if (useBlobs()) {
+  if (blobsEnabled()) {
     const store = await blobStore();
     await store.delete(key);
     return;

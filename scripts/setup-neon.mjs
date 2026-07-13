@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Connect Foundry to Neon Postgres and apply migrations.
 //
 // 1. Create a project at https://console.neon.tech

@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Phase 3 end-to-end verification against a running server (npm start).
 // Covers: onboarding, products (variants/bulk/duplicate), manual orders,
 // payments, refunds, inventory, customers (import/export), media upload,

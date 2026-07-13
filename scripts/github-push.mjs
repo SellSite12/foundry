@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
+ 
 // Create GitHub repo and push using stored git credentials (no gh CLI needed).
 // Usage: node scripts/github-push.mjs [owner/repo-name]
 
 import { spawn } from "child_process";
-import { createInterface } from "readline";
 
 const repoArg = process.argv[2];
 let owner;
@@ -77,7 +76,6 @@ if (!owner) {
   owner = me.login;
 }
 
-const remote = `https://github.com/${owner}/${name}.git`;
 await run("git", ["remote", "remove", "origin"]).catch(() => {});
 // Use token embedded in URL to avoid interactive credential prompts
 await run("git", ["remote", "add", "origin", `https://x-access-token:${token}@github.com/${owner}/${name}.git`]);

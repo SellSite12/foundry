@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 
 import { db } from "@/lib/db";
-import { ok, withErrorHandling, ApiError } from "@/lib/api";
+import { ok, withErrorHandling } from "@/lib/api";
 import { authenticateBearer, logApiRequest } from "@/lib/api/bearer";
 import { parsePagination, paginated } from "@/lib/api/v1";
 

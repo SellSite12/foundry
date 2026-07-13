@@ -5,7 +5,6 @@ import { db } from "@/lib/db";
 import { ok, fail, parseBody, withErrorHandling } from "@/lib/api";
 import { requireStoreAccess } from "@/lib/seller/access";
 import { enqueueJob } from "@/lib/jobs/queue";
-import { generateReportFile } from "@/lib/reports/generate";
 
 const reportSchema = z.object({
   name: z.string().min(1),

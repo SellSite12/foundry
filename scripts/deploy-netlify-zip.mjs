@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 // Trigger a production Netlify build from the linked Git repo (runs netlify-build.mjs on Netlify).
 // Usage: node scripts/deploy-netlify-zip.mjs
 //

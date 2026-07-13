@@ -1,6 +1,5 @@
 import { NextRequest } from "next/server";
 
-import { db } from "@/lib/db";
 import { ok, withErrorHandling } from "@/lib/api";
 import { authenticateBearer, logApiRequest } from "@/lib/api/bearer";
 import { getAdvancedMetrics } from "@/lib/seller/advanced-metrics";
